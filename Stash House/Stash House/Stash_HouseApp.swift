@@ -8,10 +8,13 @@
 import SwiftUI
 
 @main
-struct Stash_HouseApp: App {
+struct StashHouseApp: App {
+    let persistenceController = PersistenceController.shared
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

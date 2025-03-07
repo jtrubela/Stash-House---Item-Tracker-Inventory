@@ -3,23 +3,27 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D3263172D7B290400C2F72E /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3263162D7B290400C2F72E /* PersistenceController.swift */; };
 		3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */; };
-		3D4C536B2A4FD13D003E334F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C536A2A4FD13D003E334F /* ContentView.swift */; };
-		3D4C536D2A4FD13F003E334F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4C536C2A4FD13F003E334F /* Assets.xcassets */; };
-		3D4C53702A4FD13F003E334F /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4C536F2A4FD13F003E334F /* Preview Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D3263162D7B290400C2F72E /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		3D4C53652A4FD13D003E334F /* Stash House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stash House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash_HouseApp.swift; sourceTree = "<group>"; };
-		3D4C536A2A4FD13D003E334F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		3D4C536C2A4FD13F003E334F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		3D4C536F2A4FD13F003E334F /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		3D3263212D7B2D2F00C2F72E /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		3D3263222D7B2D5800C2F72E /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
+		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		3D4C53622A4FD13D003E334F /* Frameworks */ = {
@@ -52,19 +56,14 @@
 			isa = PBXGroup;
 			children = (
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
-				3D4C536A2A4FD13D003E334F /* ContentView.swift */,
-				3D4C536C2A4FD13F003E334F /* Assets.xcassets */,
-				3D4C536E2A4FD13F003E334F /* Preview Content */,
+				3D3263162D7B290400C2F72E /* PersistenceController.swift */,
+				3D3263202D7B2D1800C2F72E /* Models */,
+				3D3263212D7B2D2F00C2F72E /* Views */,
+				3D3263222D7B2D5800C2F72E /* Services */,
+				3D3263232D7B2D8300C2F72E /* Resources */,
+				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
 			path = "Stash House";
-			sourceTree = "<group>";
-		};
-		3D4C536E2A4FD13F003E334F /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				3D4C536F2A4FD13F003E334F /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -82,6 +81,13 @@
 			);
 			dependencies = (
 			);
+			fileSystemSynchronizedGroups = (
+				3D3263202D7B2D1800C2F72E /* Models */,
+				3D3263212D7B2D2F00C2F72E /* Views */,
+				3D3263222D7B2D5800C2F72E /* Services */,
+				3D3263232D7B2D8300C2F72E /* Resources */,
+				3D3263242D7B2DF200C2F72E /* Supporting Files */,
+			);
 			name = "Stash House";
 			productName = "Stash House";
 			productReference = 3D4C53652A4FD13D003E334F /* Stash House.app */;
@@ -95,7 +101,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1430;
-				LastUpgradeCheck = 1430;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					3D4C53642A4FD13D003E334F = {
 						CreatedOnToolsVersion = 14.3.1;
@@ -125,8 +131,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4C53702A4FD13F003E334F /* Preview Assets.xcassets in Resources */,
-				3D4C536D2A4FD13F003E334F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -137,8 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4C536B2A4FD13D003E334F /* ContentView.swift in Sources */,
 				3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */,
+				3D3263172D7B290400C2F72E /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +153,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -181,6 +186,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -209,6 +215,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -241,6 +248,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
