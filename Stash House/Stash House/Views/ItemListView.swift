@@ -54,3 +54,23 @@ struct ItemListView: View {
         }
     }
 }
+
+struct ItemListView_Previews: PreviewProvider {
+    static var previews: some View {
+        // Create a mock CoreData context for preview
+        let context = PersistenceController.shared.container.viewContext
+        
+        // Add sample items for preview
+        let newItem = Item(context: context)
+        newItem.id = UUID()
+        newItem.name = "Sample Item"
+        newItem.category = "Books"
+        newItem.dateAdded = Date()
+        newItem.notes = "This is a sample note."
+        
+        return NavigationView {
+            ItemListView()
+                .environment(\.managedObjectContext, context)
+        }
+    }
+}

@@ -39,3 +39,25 @@ struct ItemDetailView: View {
         .navigationTitle("Item Details")
     }
 }
+
+struct ItemDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        let context = PersistenceController.shared.container.viewContext
+        
+        let sampleItem = Item(context: context)
+        sampleItem.id = UUID()
+        sampleItem.name = "Vintage Camera"
+        sampleItem.category = "Photography"
+        sampleItem.dateAdded = Date()
+        sampleItem.notes = "A classic film camera in mint condition."
+        
+        // Mock image (optional)
+        if let image = UIImage(systemName: "camera") {
+            sampleItem.image = image.pngData()
+        }
+        
+        return NavigationView {
+            ItemDetailView(item: sampleItem)
+        }
+    }
+}
