@@ -19,10 +19,10 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
-		3D3263212D7B2D2F00C2F72E /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		3D3263222D7B2D5800C2F72E /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
+		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
 				3D3263162D7B290400C2F72E /* PersistenceController.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3D3263212D7B2D2F00C2F72E /* Views */,
+				3DA3CF4D2D7B5031009C0E0C /* Views */,
 				3D3263222D7B2D5800C2F72E /* Services */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
@@ -83,10 +83,10 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3D3263212D7B2D2F00C2F72E /* Views */,
 				3D3263222D7B2D5800C2F72E /* Services */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
+				3DA3CF4D2D7B5031009C0E0C /* Views */,
 			);
 			name = "Stash House";
 			productName = "Stash House";

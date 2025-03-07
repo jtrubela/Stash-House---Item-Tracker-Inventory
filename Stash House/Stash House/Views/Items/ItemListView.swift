@@ -9,7 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ItemListView: View {
-    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\ .managedObjectContext) private var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \Item.dateAdded, ascending: false)])
     private var items: FetchedResults<Item>
     
@@ -57,10 +57,8 @@ struct ItemListView: View {
 
 struct ItemListView_Previews: PreviewProvider {
     static var previews: some View {
-        // Create a mock CoreData context for preview
         let context = PersistenceController.shared.container.viewContext
         
-        // Add sample items for preview
         let newItem = Item(context: context)
         newItem.id = UUID()
         newItem.name = "Sample Item"
@@ -70,7 +68,7 @@ struct ItemListView_Previews: PreviewProvider {
         
         return NavigationView {
             ItemListView()
-                .environment(\.managedObjectContext, context)
+                .environment(\ .managedObjectContext, context)
         }
     }
 }
