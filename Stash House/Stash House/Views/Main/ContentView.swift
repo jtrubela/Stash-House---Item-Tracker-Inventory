@@ -4,7 +4,6 @@
 //
 //  Created by Justin Trubela on 6/30/23.
 //
-
 import SwiftUI
 
 struct ContentView: View {
@@ -12,13 +11,29 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                Image(systemName: "globe")
-                    .imageScale(.large)
-                    .foregroundColor(.accentColor)
-                Text("Hello, world!")
+            VStack(spacing: 20) {
+                Image(systemName: "barcode.viewfinder")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 100)
+                    .foregroundColor(.blue)
                 
-                // New button to navigate to Barcode Scanner
+                Text("Welcome to Stash House")
+                    .font(.title)
+                    .fontWeight(.bold)
+                
+                if let barcode = scannedBarcode {
+                    Text("Last Scanned Barcode: \(barcode)")
+                        .font(.headline)
+                        .padding()
+                        .background(Color.gray.opacity(0.2))
+                        .cornerRadius(8)
+                } else {
+                    Text("No barcode scanned yet.")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
+                
                 NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode)) {
                     Text("Scan Barcode")
                         .padding()
@@ -28,13 +43,21 @@ struct ContentView: View {
                         .cornerRadius(10)
                 }
                 .padding()
+                
+                Spacer()
             }
             .padding()
             .navigationTitle("Stash House")
         }
+        .onChange(of: scannedBarcode) { newBarcode in
+            if let barcode = newBarcode {
+                print("Scanned Barcode: \(barcode)")  // ✅ Prints to console
+            }
+        }
     }
 }
 
+// Preview for SwiftUI
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

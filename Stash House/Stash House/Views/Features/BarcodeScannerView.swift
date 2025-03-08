@@ -21,9 +21,12 @@ struct BarcodeScannerView: UIViewControllerRepresentable {
                             from connection: AVCaptureConnection) {
             if let metadataObject = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
                let barcode = metadataObject.stringValue {
+                
+                print("Scanned Barcode: \(barcode)")  // ✅ Print barcode to Xcode console
+                
                 DispatchQueue.main.async {
-                    self.parent.scannedCode = barcode
-                    self.parent.onScanComplete?(barcode) // Notify parent view
+                    self.parent.scannedCode = barcode  // ✅ Store scanned barcode
+                    self.parent.onScanComplete?(barcode)  // ✅ Trigger callback
                     self.parent.dismissScanner()
                 }
             }

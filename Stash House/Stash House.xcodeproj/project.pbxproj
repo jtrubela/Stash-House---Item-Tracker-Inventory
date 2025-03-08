@@ -19,7 +19,6 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
-		3D3263222D7B2D5800C2F72E /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
@@ -59,7 +58,6 @@
 				3D3263162D7B290400C2F72E /* PersistenceController.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
-				3D3263222D7B2D5800C2F72E /* Services */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
@@ -83,7 +81,6 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3D3263222D7B2D5800C2F72E /* Services */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
@@ -278,6 +275,7 @@
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -307,6 +305,7 @@
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

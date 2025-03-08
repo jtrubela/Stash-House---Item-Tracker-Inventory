@@ -9,15 +9,15 @@ import SwiftUI
 import AVFoundation
 
 struct BarcodeScanScreen: View {
-    @Binding var scannedCode: String?
+    @Binding var scannedCode: String?  // Ensure this matches the expected Binding type
     @Environment(\.presentationMode) var presentationMode
-
+    
     var body: some View {
         VStack {
             Text("Scan a Barcode")
                 .font(.title)
                 .padding()
-
+            
             BarcodeScannerView(scannedCode: $scannedCode, onScanComplete: { barcode in
                 scannedCode = barcode
                 presentationMode.wrappedValue.dismiss()
@@ -27,9 +27,10 @@ struct BarcodeScanScreen: View {
     }
 }
 
-// Preview for SwiftUI
-struct BarcodeScanScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        BarcodeScanScreen(scannedCode: .constant(nil))
-    }
-}
+
+//// Preview for SwiftUI
+//struct BarcodeScanScreen_Previews: PreviewProvider {
+//    static var previews: some View {
+//        BarcodeScanScreen(scannedCode: .constant(nil))
+//    }
+//}
