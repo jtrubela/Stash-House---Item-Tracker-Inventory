@@ -10,17 +10,17 @@ import SwiftUI
 
 struct AddedItemDetailView: View {
     let barcode: String
-
+    
     var body: some View {
         VStack {
             Text("Item Details")
                 .font(.title)
                 .padding()
-
+            
             Text("Barcode: \(barcode)")
                 .font(.headline)
                 .padding()
-
+            
             Button(action: {
                 print("Perform action for \(barcode)")  // ✅ Replace with real action
             }) {
@@ -32,5 +32,11 @@ struct AddedItemDetailView: View {
             }
             .padding()
         }
+    }
+}
+
+struct AddItemDetailView_Previews: PreviewProvider {
+    static var previews: some View {
+        AddedItemDetailView(barcode: "0010086010589")
     }
 }
