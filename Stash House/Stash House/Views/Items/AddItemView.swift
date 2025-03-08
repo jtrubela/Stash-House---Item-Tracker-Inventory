@@ -6,133 +6,151 @@
 //
 
 import SwiftUI
-import CoreData
+import TMDBSwift
+import TMDb
 
 struct AddItemView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @Environment(\.presentationMode) var presentationMode
     @State private var itemName: String = ""
     @State private var itemCategory: String = ""
     @State private var itemNotes: String = ""
     @State private var barcode: String?
+    @State private var searchResults: [MovieMDB] = []
     
     var body: some View {
         NavigationView {
             Form {
                 TextField("Item Name", text: $itemName)
+                    .onChange(of: itemName) { newValue in
+                        if newValue.count > 2 {
+                            searchMovies(title: newValue)
+                        } else {
+                            searchResults = []
+                        }
+                    }
                 TextField("Category", text: $itemCategory)
                 TextField("Notes", text: $itemNotes)
-                
-                // Display scanned barcode
-                if let barcode = barcode {
-                    Text("Scanned Barcode: \(barcode)")
-                        .foregroundColor(.blue)
-                }
-                
-                NavigationLink(destination: BarcodeScanScreen(scannedCode: $barcode)) {
-                    Text("Scan Barcode")
-                        .foregroundColor(.green)
+
+                if !searchResults.isEmpty {
+                    Section(header: Text("Search Results")) {
+                        List(searchResults, id: \.safeID) { movie in // ✅ Use safeID instead of id
+                            Button(action: {
+                                getMovieDetails(movieID: movie.id ?? -1) { movieDetail in
+                                    if let movie = movieDetail {
+                                        itemName = movie.title ?? "Unknown Title"
+                                        itemCategory = "Movie"
+                                        itemNotes = movie.overview ?? "No description available"
+                                    }
+                                }
+                            }) {
+                                VStack(alignment: .leading) {
+                                    Text(movie.title ?? "Unknown")
+                                        .font(.headline)
+                                    Text(movie.release_date ?? "Unknown Release Date")
+                                        .font(.subheadline)
+                                }
+                            }
+                        }
+                        .listStyle(PlainListStyle())
+                    }
                 }
             }
             .navigationTitle("Add Item")
-            .toolbar {
-                Button("Save") {
-                    saveItem()
-                }
-            }
-            .onChange(of: barcode) { newBarcode in
-                if let barcode = newBarcode {
-                    lookupItem(by: barcode)
-                }
-            }
         }
     }
     
-    // ✅ CoreData Lookup for Existing Barcode
-    private func lookupItem(by barcode: String) {
-        let fetchRequest: NSFetchRequest<Item> = Item.fetchRequest()
-        fetchRequest.predicate = NSPredicate(format: "barcode == %@", barcode)
-        
-        do {
-            let results = try viewContext.fetch(fetchRequest)
-            if let matchedItem = results.first {
-                self.itemName = matchedItem.name ?? ""
-                self.itemCategory = matchedItem.category ?? ""
-                self.itemNotes = matchedItem.notes ?? ""
-            } else {
-                fetchMovieDetailsFromAPI(barcode: barcode)  // If not found, fetch from movie API
-            }
-        } catch {
-            print("Failed to fetch item with barcode: \(error)")
-        }
-    }
-    
-    // ✅ Fetch Movie Details via UPC API → OMDb API
-    private func fetchMovieDetailsFromAPI(barcode: String) {
-        let upcApiURL = "https://api.barcodelookup.com/v3/products?barcode=\(barcode)&formatted=y&key=YOUR_UPC_API_KEY"
-        
-        guard let upcURL = URL(string: upcApiURL) else { return }
-        
-        URLSession.shared.dataTask(with: upcURL) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                if let products = json?["products"] as? [[String: Any]], let movieTitle = products.first?["title"] as? String {
-                    fetchMovieFromOMDb(title: movieTitle)
-                }
-            } catch {
-                print("Error fetching movie title from UPC: \(error)")
-            }
-        }.resume()
-    }
-    
-    // ✅ Fetch movie details from OMDb API
-    private func fetchMovieFromOMDb(title: String) {
-        let omdbApiURL = "https://www.omdbapi.com/?t=\(title.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? "")&apikey=YOUR_OMDB_API_KEY"
-        
-        guard let url = URL(string: omdbApiURL) else { return }
-        
-        URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, error == nil else { return }
-            
-            do {
-                let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-                DispatchQueue.main.async {
-                    let director = json?["Director"] as? String ?? "Unknown"
-                    let plot = json?["Plot"] as? String ?? "No description available."
-                    
-                    self.itemNotes = "Director: \(director)\nPlot: \(plot)"
-                }
-
-            } catch {
-                print("Error fetching movie details: \(error)")
-            }
-        }.resume()
-    }
-    
-    private func saveItem() {
-        let newItem = Item(context: viewContext)
+    private func saveMovieToCoreData(movie: MovieDetailedMDB) {
+        let newItem = Item(context: PersistenceController.shared.container.viewContext)
         newItem.id = UUID()
-        newItem.name = itemName
-        newItem.category = itemCategory
-        newItem.notes = itemNotes
-        newItem.barcode = barcode
-        newItem.dateAdded = Date()
+        newItem.name = movie.title ?? "Unknown Title"
+        newItem.category = "Movie"
+        newItem.notes = """
+    \(movie.overview ?? "No description available.")
+    
+    - Release Date: \(movie.release_date ?? "Unknown")
+    - Runtime: \(movie.runtime ?? 0) minutes
+    - Rating: \(movie.vote_average ?? 0.0) / 10 (\(movie.vote_count ?? 0) votes)
+
+    - Status: \(movie.status ?? "Unknown")
+    - Revenue: $\(movie.revenue ?? 0)
+    """
         
         do {
-            try viewContext.save()
-            presentationMode.wrappedValue.dismiss()
+            try PersistenceController.shared.container.viewContext.save()
+            print("✅ Movie saved to CoreData: \(movie.title ?? "Unknown Title")")
         } catch {
-            print("Failed to save new item: \(error)")
+            print("❌ Error saving movie to CoreData: \(error)")
         }
     }
+
+    private func searchMovies(title: String) {
+        SearchMDB.movie(query: title, language: "en", page: 1, includeAdult: false, year: nil, primaryReleaseYear: nil) { clientReturn, movieArray in
+            if let movies = movieArray {
+                DispatchQueue.main.async {
+                    searchResults = movies
+                }
+            } else {
+                print("No movies found for query: \(title)")
+            }
+        }
+    }
+    
+        private func extractGenreNames(from genres: [GenreMDB]?) -> String {
+            guard let genres = genres else { return "Unknown" }
+            
+            return genres.map { genre in
+                let mirror = Mirror(reflecting: genre)
+                if let nameProperty = mirror.children.first(where: { $0.label == "name" })?.value as? String {
+                    return nameProperty
+                }
+                return "Unknown"
+            }.joined(separator: ", ")
+        }
+
+    
+        private func getMovieDetails(movieID: Int, completion: @escaping (MovieDetailedMDB?) -> Void) {
+            MovieMDB.movie(movieID: movieID, language: "en") { clientReturn, movieDetail in
+                if let movie = movieDetail {
+                    // ✅ Use reflection to extract genre names
+                    let genreNames = extractGenreNames(from: movie.genres)
+                    
+                    print("""
+            -------------------------------
+            MOVIE DETAILS:
+            Title: \(movie.title ?? "Unknown")
+            Release Date: \(movie.release_date ?? "Unknown")
+            Overview: \(movie.overview ?? "No description available")
+            Genres: \(genreNames)
+            Runtime: \(movie.runtime ?? 0) minutes
+            -------------------------------
+            """)
+                    
+                    DispatchQueue.main.async {
+                        itemName = movie.title ?? "Unknown Title"
+                        itemCategory = "Movie"
+                        itemNotes = """
+                \(movie.overview ?? "No description available.")
+                
+                - Release Date: \(movie.release_date ?? "Unknown")
+                - Runtime: \(movie.runtime ?? 0) minutes
+                - Genres: \(genreNames)
+                """
+                    }
+                    
+                    completion(movie)
+                } else {
+                    print("No details found for movie ID: \(movieID)")
+                    completion(nil)
+                }
+            }
+        }
+
+
+
+
 }
 
-// ✅ SwiftUI Preview
 struct AddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        let context = PersistenceController.shared.container.viewContext
-        return AddItemView().environment(\.managedObjectContext, context)
+        AddItemView()
     }
 }
