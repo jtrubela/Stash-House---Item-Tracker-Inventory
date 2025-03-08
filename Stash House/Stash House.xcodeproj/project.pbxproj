@@ -3,24 +3,46 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 73;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D3263172D7B290400C2F72E /* PersistenceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3263162D7B290400C2F72E /* PersistenceController.swift */; };
 		3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */; };
+		3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00B2D7CB7A1000647E8 /* TMDb */; };
+		3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00E2D7CC9C7000647E8 /* TMDBSwift */; };
+		3DD9D01B2D7CD73E000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D01A2D7CD73E000647E8 /* TMDb */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		3D3263162D7B290400C2F72E /* PersistenceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistenceController.swift; sourceTree = "<group>"; };
 		3D4C53652A4FD13D003E334F /* Stash House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stash House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash_HouseApp.swift; sourceTree = "<group>"; };
+		3DD9D0452D7CE39E000647E8 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				"Configuration Files/Stash-House-Info.plist",
+			);
+			target = 3D4C53642A4FD13D003E334F /* Stash House */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+		3DD9D04D2D7CEB90000647E8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
+			buildPhase = 3D4C53632A4FD13D003E334F /* Resources */;
+			membershipExceptions = (
+				"Movies/MovieMDB+Identifiable.swift",
+			);
+		};
+/* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
+		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3DD9D04D2D7CEB90000647E8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
 		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
-		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
+		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -29,6 +51,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */,
+				3DD9D01B2D7CD73E000647E8 /* TMDb in Frameworks */,
+				3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -40,6 +65,7 @@
 			children = (
 				3D4C53672A4FD13D003E334F /* Stash House */,
 				3D4C53662A4FD13D003E334F /* Products */,
+				3D8441BF2D7CEEC300C70DEE /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,13 +81,20 @@
 			isa = PBXGroup;
 			children = (
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
-				3D3263162D7B290400C2F72E /* PersistenceController.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
 			path = "Stash House";
+			sourceTree = "<group>";
+		};
+		3D8441BF2D7CEEC300C70DEE /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				3DD9D0452D7CE39E000647E8 /* Config.xcconfig */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -106,7 +139,6 @@
 				};
 			};
 			buildConfigurationList = 3D4C53602A4FD13D003E334F /* Build configuration list for PBXProject "Stash House" */;
-			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -114,6 +146,11 @@
 				Base,
 			);
 			mainGroup = 3D4C535C2A4FD13D003E334F;
+			packageReferences = (
+				3DD9D00D2D7CC9C7000647E8 /* XCRemoteSwiftPackageReference "TheMovieDatabaseSwiftWrapper" */,
+				3DD9D0192D7CD73E000647E8 /* XCRemoteSwiftPackageReference "TMDb" */,
+			);
+			preferredProjectObjectVersion = 56;
 			productRefGroup = 3D4C53662A4FD13D003E334F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -139,7 +176,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */,
-				3D3263172D7B290400C2F72E /* PersistenceController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,6 +184,8 @@
 /* Begin XCBuildConfiguration section */
 		3D4C53712A4FD13F003E334F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 3D3263242D7B2DF200C2F72E /* Supporting Files */;
+			baseConfigurationReferenceRelativePath = "Configuration Files/Config.xcconfig";
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -198,6 +236,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -210,6 +249,8 @@
 		};
 		3D4C53722A4FD13F003E334F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReferenceAnchor = 3D3263242D7B2DF200C2F72E /* Supporting Files */;
+			baseConfigurationReferenceRelativePath = "Configuration Files/Config.xcconfig";
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -254,6 +295,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -275,6 +317,7 @@
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Stash House/Supporting Files/Configuration Files/Stash-House-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -305,6 +348,7 @@
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Stash House/Supporting Files/Configuration Files/Stash-House-Info.plist";
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need access to your camera to scan barcodes";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -346,6 +390,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3DD9D00A2D7CB7A1000647E8 /* XCRemoteSwiftPackageReference "TMDb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamayoung/TMDb";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.3.0;
+			};
+		};
+		3DD9D00D2D7CC9C7000647E8 /* XCRemoteSwiftPackageReference "TheMovieDatabaseSwiftWrapper" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/gkye/TheMovieDatabaseSwiftWrapper";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.7.0;
+			};
+		};
+		3DD9D0192D7CD73E000647E8 /* XCRemoteSwiftPackageReference "TMDb" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/adamayoung/TMDb";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.3.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3DD9D00B2D7CB7A1000647E8 /* TMDb */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DD9D00A2D7CB7A1000647E8 /* XCRemoteSwiftPackageReference "TMDb" */;
+			productName = TMDb;
+		};
+		3DD9D00E2D7CC9C7000647E8 /* TMDBSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DD9D00D2D7CC9C7000647E8 /* XCRemoteSwiftPackageReference "TheMovieDatabaseSwiftWrapper" */;
+			productName = TMDBSwift;
+		};
+		3DD9D01A2D7CD73E000647E8 /* TMDb */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DD9D0192D7CD73E000647E8 /* XCRemoteSwiftPackageReference "TMDb" */;
+			productName = TMDb;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3D4C535D2A4FD13D003E334F /* Project object */;
 }

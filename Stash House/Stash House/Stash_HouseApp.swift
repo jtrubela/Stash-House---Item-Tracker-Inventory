@@ -6,15 +6,17 @@
 //
 
 import SwiftUI
+import TMDBSwift
 
 @main
 struct StashHouseApp: App {
-    let persistenceController = PersistenceController.shared
-    
+//    let persistenceController = PersistenceController.shared
+    let apikey: () = TMDBConfig.apikey = Environments.apikey
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            AddItemView()
+//            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }

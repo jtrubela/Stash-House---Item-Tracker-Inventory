@@ -1,0 +1,24 @@
+{
+  "originHash" : "e5401262dc3e5caac2716c2d97b8141c805051c32ededcb6e7a15bc5f47d20ee",
+  "pins" : [
+    {
+      "identity" : "themoviedatabaseswiftwrapper",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/gkye/TheMovieDatabaseSwiftWrapper",
+      "state" : {
+        "revision" : "ec8d39c5e37720c002faa4ad9ab4240bb61833af",
+        "version" : "0.7.0"
+      }
+    },
+    {
+      "identity" : "tmdb",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/adamayoung/TMDb",
+      "state" : {
+        "revision" : "edbaefe23929ca109e1e1512e8d6a660d501a6de",
+        "version" : "13.3.0"
+      }
+    }
+  ],
+  "version" : 3
+}
