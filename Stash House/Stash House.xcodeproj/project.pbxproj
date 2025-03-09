@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */; };
+		3DA7DEBB2D7D33B9005AA052 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3DA7DEBA2D7D33B9005AA052 /* CodeScanner */; };
 		3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00B2D7CB7A1000647E8 /* TMDb */; };
 		3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00E2D7CC9C7000647E8 /* TMDBSwift */; };
 		3DD9D01B2D7CD73E000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D01A2D7CD73E000647E8 /* TMDb */; };
@@ -16,7 +17,6 @@
 /* Begin PBXFileReference section */
 		3D4C53652A4FD13D003E334F /* Stash House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stash House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash_HouseApp.swift; sourceTree = "<group>"; };
-		3DD9D0452D7CE39E000647E8 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -44,6 +44,7 @@
 		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
+		3DA7DED22D7D3B19005AA052 /* Features */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Features; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DA7DEBB2D7D33B9005AA052 /* CodeScanner in Frameworks */,
 				3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */,
 				3DD9D01B2D7CD73E000647E8 /* TMDb in Frameworks */,
 				3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */,
@@ -65,7 +67,6 @@
 			children = (
 				3D4C53672A4FD13D003E334F /* Stash House */,
 				3D4C53662A4FD13D003E334F /* Products */,
-				3D8441BF2D7CEEC300C70DEE /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -82,19 +83,12 @@
 			children = (
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
+				3DA7DED22D7D3B19005AA052 /* Features */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
 			path = "Stash House";
-			sourceTree = "<group>";
-		};
-		3D8441BF2D7CEEC300C70DEE /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				3DD9D0452D7CE39E000647E8 /* Config.xcconfig */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -117,6 +111,7 @@
 				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
+				3DA7DED22D7D3B19005AA052 /* Features */,
 			);
 			name = "Stash House";
 			productName = "Stash House";
@@ -149,6 +144,7 @@
 			packageReferences = (
 				3DD9D00D2D7CC9C7000647E8 /* XCRemoteSwiftPackageReference "TheMovieDatabaseSwiftWrapper" */,
 				3DD9D0192D7CD73E000647E8 /* XCRemoteSwiftPackageReference "TMDb" */,
+				3DA7DEB92D7D33B9005AA052 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			preferredProjectObjectVersion = 56;
 			productRefGroup = 3D4C53662A4FD13D003E334F /* Products */;
@@ -392,6 +388,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3DA7DEB92D7D33B9005AA052 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.2;
+			};
+		};
 		3DD9D00A2D7CB7A1000647E8 /* XCRemoteSwiftPackageReference "TMDb" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/adamayoung/TMDb";
@@ -419,6 +423,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3DA7DEBA2D7D33B9005AA052 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3DA7DEB92D7D33B9005AA052 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
 		3DD9D00B2D7CB7A1000647E8 /* TMDb */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3DD9D00A2D7CB7A1000647E8 /* XCRemoteSwiftPackageReference "TMDb" */;

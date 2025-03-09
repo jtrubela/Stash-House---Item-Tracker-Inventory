@@ -9,7 +9,7 @@ import SwiftUI
 import TMDBSwift
 import TMDb
 
-struct AddItemView: View {
+struct AddItemAndSearchView: View {
     @State private var itemName: String = ""
     @State private var itemCategory: String = ""
     @State private var itemNotes: String = ""
@@ -151,6 +151,6 @@ struct AddItemView: View {
 
 struct AddItemView_Previews: PreviewProvider {
     static var previews: some View {
-        AddItemView()
+        AddItemAndSearchView()
     }
 }

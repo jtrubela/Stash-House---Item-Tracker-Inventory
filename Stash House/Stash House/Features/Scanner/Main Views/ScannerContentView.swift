@@ -1,12 +1,14 @@
 //
-//  ContentView.swift
+//  ScannerContentView.swift
 //  Stash House
 //
-//  Created by Justin Trubela on 6/30/23.
+//  Created by Justin Trubela on 3/8/25.
 //
-import SwiftUI
 
-struct ContentView: View {
+import SwiftUI
+import CodeScanner
+
+struct ScannerContentView: View {
     @State private var scannedBarcode: String?
     
     var body: some View {
@@ -58,8 +60,8 @@ struct ContentView: View {
 }
 
 // Preview for SwiftUI
-struct ContentView_Previews: PreviewProvider {
+struct ScannerContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ScannerContentView()
     }
 }

@@ -15,7 +15,7 @@ struct StashHouseApp: App {
 
     var body: some Scene {
         WindowGroup {
-            AddItemView()
+            ScannerContentView()
 //            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
