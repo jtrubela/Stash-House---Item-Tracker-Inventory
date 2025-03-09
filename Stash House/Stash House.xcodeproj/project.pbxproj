@@ -41,10 +41,10 @@
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3DD9D04D2D7CEB90000647E8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
-		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
+		3D3263232D7B2D8300C2F72E /* App Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Resources"; sourceTree = "<group>"; };
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		3DA7DED22D7D3B19005AA052 /* Features */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Features; sourceTree = "<group>"; };
+		3DA7DF412D7D42CE005AA052 /* App Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Utilities"; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +83,9 @@
 			children = (
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3DA7DED22D7D3B19005AA052 /* Features */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
-				3D3263232D7B2D8300C2F72E /* Resources */,
+				3DA7DF412D7D42CE005AA052 /* App Utilities */,
+				3D3263232D7B2D8300C2F72E /* App Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
 			path = "Stash House";
@@ -108,10 +108,10 @@
 			);
 			fileSystemSynchronizedGroups = (
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3D3263232D7B2D8300C2F72E /* Resources */,
+				3D3263232D7B2D8300C2F72E /* App Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
-				3DA7DED22D7D3B19005AA052 /* Features */,
+				3DA7DF412D7D42CE005AA052 /* App Utilities */,
 			);
 			name = "Stash House";
 			productName = "Stash House";
@@ -309,7 +309,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Stash House/Supporting Files/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Stash House/App Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -340,7 +340,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Stash House/Supporting Files/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Stash House/App Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

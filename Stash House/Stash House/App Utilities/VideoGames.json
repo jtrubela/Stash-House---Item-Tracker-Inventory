@@ -1,0 +1,415 @@
+{
+    "systems": [
+        {
+            "name": "N64",
+            "manufacturer": "Nintendo",
+            "releaseYear": 1996,
+            "games": [
+                {
+                    "name": "Cyber Tiger",
+                    "console": "N64",
+                    "releaseYear": 1999
+                },
+                {
+                    "name": "Namco Museum 64",
+                    "console": "N64",
+                    "releaseYear": 1999
+                },
+                {
+                    "name": "Super Mario 64",
+                    "console": "N64",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Mario Kart 64",
+                    "console": "N64",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Mario Party",
+                    "console": "N64",
+                    "releaseYear": 1998
+                },
+                {
+                    "name": "Mario Party 2",
+                    "console": "N64",
+                    "releaseYear": 1999
+                },
+                {
+                    "name": "Yoshi's Story",
+                    "console": "N64",
+                    "releaseYear": 1997
+                },
+                {
+                    "name": "Donkey Kong 64",
+                    "console": "N64",
+                    "releaseYear": 1999
+                }
+            ]
+        },
+        {
+            "name": "Gamecube",
+            "manufacturer": "Nintendo",
+            "releaseYear": 2001,
+            "games": [
+                {
+                    "name": "Mario Party 5",
+                    "console": "Gamecube",
+                    "releaseYear": 2003
+                },
+                {
+                    "name": "Mario Kart: Double Dash",
+                    "console": "Gamecube",
+                    "releaseYear": 2003
+                },
+                {
+                    "name": "Pokemon Colosseum",
+                    "console": "Gamecube",
+                    "releaseYear": 2003
+                },
+                {
+                    "name": "Resident Evil",
+                    "console": "Gamecube",
+                    "releaseYear": 2002
+                },
+                {
+                    "name": "Super Smash Bros. Melee",
+                    "console": "Gamecube",
+                    "releaseYear": 2001
+                }
+            ]
+        },
+        {
+            "name": "Gameboy",
+            "manufacturer": "Nintendo",
+            "releaseYear": 1989,
+            "games": [
+                {
+                    "name": "Pokemon Red",
+                    "console": "Gameboy",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Pokemon Blue",
+                    "console": "Gameboy",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Pokemon Ruby",
+                    "console": "Gameboy",
+                    "releaseYear": 2002
+                },
+                {
+                    "name": "Pokemon Emerald",
+                    "console": "Gameboy",
+                    "releaseYear": 2004
+                },
+                {
+                    "name": "Wario Land",
+                    "console": "Gameboy",
+                    "releaseYear": 1989
+                },
+                {
+                    "name": "Tetris Plus",
+                    "console": "Gameboy",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Looney Tunes Babs' Big Break",
+                    "console": "Gameboy",
+                    "releaseYear": 1992
+                }
+            ]
+        },
+        {
+            "name": "Sega Genesis",
+            "manufacturer": "Sega",
+            "releaseYear": 1988,
+            "games": [
+                {
+                    "name": "Desert Strike",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1992
+                },
+                {
+                    "name": "FIFA International Soccer",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "Power Challenge",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1991
+                },
+                {
+                    "name": "Jurassic Park",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "Sonic the Hedgehog 2",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1992
+                },
+                {
+                    "name": "Sonic the Hedgehog",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1991
+                },
+                {
+                    "name": "Power Rangers",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1994
+                },
+                {
+                    "name": "The Lion King",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1994
+                },
+                {
+                    "name": "Caesars Palace",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "NHLPA Hockey '93",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1992
+                },
+                {
+                    "name": "NHL '94",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "NHL '95",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1994
+                },
+                {
+                    "name": "NHL '97",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1996
+                },
+                {
+                    "name": "Ecco the Dolphin",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1992
+                },
+                {
+                    "name": "Aladdin",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "Cliffhanger",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1993
+                },
+                {
+                    "name": "Side Pocket",
+                    "console": "Sega Genesis",
+                    "releaseYear": 1992
+                }
+            ]
+        },
+        {
+            "name": "Playstation",
+            "manufacturer": "Sony",
+            "releaseYear": 1994,
+            "games": [
+                {
+                    "name": "Ape Escape",
+                    "console": "Playstation",
+                    "releaseYear": 1999
+                },
+                {
+                    "name": "Tony Hawk's Pro Skater 2",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "Scrabble",
+                    "console": "Playstation",
+                    "releaseYear": 1999
+                },
+                {
+                    "name": "Madden NFL 2001",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "WWF SmackDown! 2",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "MLB 2001",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "The Emperor's New Groove",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "Frogger",
+                    "console": "Playstation",
+                    "releaseYear": 1997
+                },
+                {
+                    "name": "Frogger 2: Swampy's Revenge",
+                    "console": "Playstation",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "Monopoly",
+                    "console": "Playstation",
+                    "releaseYear": 1997
+                }
+            ]
+        },
+        {
+            "name": "Playstation 2",
+            "manufacturer": "Sony",
+            "releaseYear": 2000,
+            "games": [
+                {
+                    "name": "Triple Play Baseball",
+                    "console": "Playstation 2",
+                    "releaseYear": 2001
+                },
+                {
+                    "name": "NBA 2K3",
+                    "console": "Playstation 2",
+                    "releaseYear": 2002
+                },
+                {
+                    "name": "Metal Gear Solid 2: Sons of Liberty",
+                    "console": "Playstation 2",
+                    "releaseYear": 2001
+                },
+                {
+                    "name": "NFL GameDay 2001",
+                    "console": "Playstation 2",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "Tekken Tag Tournament",
+                    "console": "Playstation 2",
+                    "releaseYear": 2000
+                },
+                {
+                    "name": "Salt Lake 2002",
+                    "console": "Playstation 2",
+                    "releaseYear": 2002
+                },
+                {
+                    "name": "Kingdom Hearts",
+                    "console": "Playstation 2",
+                    "releaseYear": 2002
+                },
+                {
+                    "name": "The Simpsons: Road Rage",
+                    "console": "Playstation 2",
+                    "releaseYear": 2001
+                },
+                {
+                    "name": "RC Revenge Pro",
+                    "console": "Playstation 2",
+                    "releaseYear": 2001
+                }
+            ]
+        },
+        {
+            "name": "Playstation 3",
+            "manufacturer": "Sony",
+            "releaseYear": 2006,
+            "games": [
+                {
+                    "name": "Call of Duty: Black Ops",
+                    "console": "Playstation 3",
+                    "releaseYear": 2010
+                },
+                {
+                    "name": "Call of Duty: Modern Warfare 2",
+                    "console": "Playstation 3",
+                    "releaseYear": 2009
+                },
+                {
+                    "name": "Guitar Hero III: Legends of Rock",
+                    "console": "Playstation 3",
+                    "releaseYear": 2007
+                },
+                {
+                    "name": "Guitar Hero 5",
+                    "console": "Playstation 3",
+                    "releaseYear": 2009
+                },
+                {
+                    "name": "NBA 2K16",
+                    "console": "Playstation 3",
+                    "releaseYear": 2015
+                },
+                {
+                    "name": "Madden NFL 10",
+                    "console": "Playstation 3",
+                    "releaseYear": 2009
+                },
+                {
+                    "name": "FIFA 17",
+                    "console": "Playstation 3",
+                    "releaseYear": 2016
+                },
+                {
+                    "name": "Kingdom Hearts HD 1.5 ReMIX",
+                    "console": "Playstation 3",
+                    "releaseYear": 2013
+                },
+                {
+                    "name": "Kingdom Hearts HD 2.5 ReMIX",
+                    "console": "Playstation 3",
+                    "releaseYear": 2014
+                }
+            ]
+        },
+        {
+            "name": "Playstation 4",
+            "manufacturer": "Sony",
+            "releaseYear": 2013,
+            "games": [
+                {
+                    "name": "Crash Bandicoot N. Sane Trilogy",
+                    "console": "Playstation 4",
+                    "releaseYear": 2017
+                },
+                {
+                    "name": "NBA Live 19",
+                    "console": "Playstation 4",
+                    "releaseYear": 2018
+                },
+                {
+                    "name": "Kingdom Hearts III",
+                    "console": "Playstation 4",
+                    "releaseYear": 2019
+                },
+                {
+                    "name": "The Last of Us Remastered",
+                    "console": "Playstation 4",
+                    "releaseYear": 2014
+                },
+                {
+                    "name": "Sonic Forces",
+                    "console": "Playstation 4",
+                    "releaseYear": 2017
+                },
+                {
+                    "name": "Knack",
+                    "console": "Playstation 4",
+                    "releaseYear": 2013
+                }
+            ]
+        }
+    ]
+}
