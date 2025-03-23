@@ -10,13 +10,11 @@ import TMDBSwift
 
 @main
 struct StashHouseApp: App {
-//    let persistenceController = PersistenceController.shared
-    let apikey: () = TMDBConfig.apikey = Environments.apikey
-
+    let persistenceController = PersistenceController.shared
     var body: some Scene {
         WindowGroup {
             ScannerContentView()
-//            .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
