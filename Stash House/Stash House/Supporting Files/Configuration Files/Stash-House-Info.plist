@@ -4,5 +4,13 @@
 <dict>
 	<key>TMDB_API_KEY</key>
 	<string>$(TMDB_API_KEY)</string>
+	<key>EBAY_REDIRECT_URI</key>
+	<string>$(EBAY_REDIRECT_URI)</string>
+	<key>EBAY_SCOPE</key>
+	<string>$(EBAY_SCOPE)</string>
+	<key>EBAY_CLIENT_ID</key>
+	<string>$(EBAY_CLIENT_ID)</string>
+	<key>EBAY_CLIENT_SECRET</key>
+	<string>$(EBAY_CLIENT_SECRET)</string>
 </dict>
 </plist>

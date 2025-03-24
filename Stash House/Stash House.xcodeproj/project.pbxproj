@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */; };
 		3DA7DEBB2D7D33B9005AA052 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3DA7DEBA2D7D33B9005AA052 /* CodeScanner */; };
+		3DD2F6BB2D90D0DA00DFBAA9 /* Environments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2F6B82D90D0DA00DFBAA9 /* Environments.swift */; };
+		3DD2F6BF2D90D5B400DFBAA9 /* EbayProduct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2F6BE2D90D5B400DFBAA9 /* EbayProduct.swift */; };
+		3DD2F6C32D90D5DC00DFBAA9 /* EbaySearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2F6C22D90D5DC00DFBAA9 /* EbaySearchView.swift */; };
 		3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00B2D7CB7A1000647E8 /* TMDb */; };
 		3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00E2D7CC9C7000647E8 /* TMDBSwift */; };
 		3DD9D01B2D7CD73E000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D01A2D7CD73E000647E8 /* TMDb */; };
@@ -17,6 +20,9 @@
 /* Begin PBXFileReference section */
 		3D4C53652A4FD13D003E334F /* Stash House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stash House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash_HouseApp.swift; sourceTree = "<group>"; };
+		3DD2F6B82D90D0DA00DFBAA9 /* Environments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environments.swift; sourceTree = "<group>"; };
+		3DD2F6BE2D90D5B400DFBAA9 /* EbayProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbayProduct.swift; sourceTree = "<group>"; };
+		3DD2F6C22D90D5DC00DFBAA9 /* EbaySearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EbaySearchView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -45,6 +51,7 @@
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
 		3DA7DF412D7D42CE005AA052 /* App Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Utilities"; sourceTree = "<group>"; };
+		3DD2F6C82D90DEAE00DFBAA9 /* Auth */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Auth; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +89,10 @@
 			isa = PBXGroup;
 			children = (
 				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
+				3DD2F6C82D90DEAE00DFBAA9 /* Auth */,
+				3DD2F6C22D90D5DC00DFBAA9 /* EbaySearchView.swift */,
+				3DD2F6BE2D90D5B400DFBAA9 /* EbayProduct.swift */,
+				3DD2F6B82D90D0DA00DFBAA9 /* Environments.swift */,
 				3D3263202D7B2D1800C2F72E /* Models */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
 				3DA7DF412D7D42CE005AA052 /* App Utilities */,
@@ -112,6 +123,7 @@
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
 				3DA7DF412D7D42CE005AA052 /* App Utilities */,
+				3DD2F6C82D90DEAE00DFBAA9 /* Auth */,
 			);
 			name = "Stash House";
 			productName = "Stash House";
@@ -171,7 +183,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DD2F6BF2D90D5B400DFBAA9 /* EbayProduct.swift in Sources */,
 				3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */,
+				3DD2F6BB2D90D0DA00DFBAA9 /* Environments.swift in Sources */,
+				3DD2F6C32D90D5DC00DFBAA9 /* EbaySearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
