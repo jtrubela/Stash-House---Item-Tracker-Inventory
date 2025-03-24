@@ -11,13 +11,13 @@ import Combine
 
 class EbayAuthManager: ObservableObject {
     static let shared = EbayAuthManager()
-
+    
     @Published var bearerToken: String = ""
-
-    private init() {
+    
+    init() {
         fetchToken()
     }
-
+    
     func fetchToken() {
         EbayOAuthService.fetchAccessToken { token in
             DispatchQueue.main.async {
