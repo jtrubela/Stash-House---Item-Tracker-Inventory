@@ -5,6 +5,8 @@
 //  Created by Justin Trubela on 3/25/25.
 //
 
+import Foundation
+import SwiftUI
 
 struct EbayProductDetail: Identifiable {
     let rawJSON: [String: Any]?

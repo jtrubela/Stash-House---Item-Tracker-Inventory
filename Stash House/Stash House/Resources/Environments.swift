@@ -13,7 +13,8 @@ public struct Environments {
         "redirectURI": "EBAY_REDIRECT_URI",
         "clientID": "EBAY_CLIENT_ID",
         "clientSecret": "EBAY_CLIENT_SECRET",
-        "scope":"EBAY_SCOPE"
+        "scope":"EBAY_SCOPE",
+        "tmdbAPIKey":"TMDB_API_KEY"
     ]
     
     // Generic getter with mapping

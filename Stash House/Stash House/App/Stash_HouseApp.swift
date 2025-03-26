@@ -14,8 +14,11 @@ struct StashHouseApp: App {
     
     var body: some Scene {
         WindowGroup {
-            EbaySearchView()
-                .environmentObject(ebayAuthManager)
+            ScannerContentView()
+            //            AddItemAndSearchView()
+            //            EbaySearchView()
+                .environmentObject(EbayAuthManager.shared)
+                .environmentObject(TMDBAuthManager.shared)
         }
     }
 }

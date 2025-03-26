@@ -1,16 +1,14 @@
 //
-//  BarcodeScanner.swift
+//  BarcodeScannerView.swift
 //  Stash House
 //
 //  Created by Justin Trubela on 3/7/25.
 //
-
-//TODO: Change the name of the struct to ScannerController
 import SwiftUI
 import AVFoundation
 
 struct BarcodeScannerView: UIViewControllerRepresentable {
-
+    
     @Binding var scannedCode: String?
     var barcodeType: AVMetadataObject.ObjectType
     var onScanComplete: ((String) -> Void)?
@@ -175,4 +173,15 @@ struct BarcodeScannerView: UIViewControllerRepresentable {
     func dismissScanner() {
         presentationMode.wrappedValue.dismiss()
     }
+}
+
+#Preview {
+    BarcodeScannerView(
+        scannedCode: .constant(nil),
+        barcodeType: .ean13,
+        onScanComplete: { code in
+            print("Scanned: \(code)")
+        },
+        isFlashlightOn: .constant(false)
+    )
 }

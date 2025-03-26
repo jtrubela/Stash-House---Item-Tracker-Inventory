@@ -4,7 +4,6 @@
 //
 //  Created by Justin Trubela on 3/23/25.
 //
-//
 
 
 import Foundation
@@ -74,13 +73,14 @@ class EbayAPIService {
             }
             
             // Optional: print raw response
-            // print(String(data: data, encoding: .utf8) ?? "Unreadable")
+            //             print(String(data: data, encoding: .utf8) ?? "Unreadable")
             
             do {
                 let decoder = JSONDecoder()
                 decoder.userInfo[.dataKey] = data
                 let productDetail = try decoder.decode(EbayProductDetail.self, from: data)
                 print("✅ Successfully decoded product detail: \(productDetail.title)")
+                //                print(productDetail)
                 completion(productDetail)
             } catch {
                 print("❌ Decoding failed: \(error)")
