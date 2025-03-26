@@ -31,3 +31,13 @@ struct ScannerView: View {
         }
     }
 }
+
+#Preview {
+    ScannerView(
+        isScanning: .constant(true),
+        isBulkScan: .constant(false),
+        scannedItems: .constant([
+            ScannedItem(id: UUID(), title: "Mock Item", barcode: "123456789012")
+        ])
+    )
+}

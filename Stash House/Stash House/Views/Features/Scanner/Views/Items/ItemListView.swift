@@ -31,3 +31,20 @@ struct ItemListView: View {
         }
     }
 }
+
+#Preview {
+    let context = PersistenceController.shared.container.viewContext
+    
+    let item1 = Item(context: context)
+    item1.id = UUID()
+    item1.name = "The Matrix"
+    item1.notes = "Sci-fi movie with Keanu Reeves"
+    
+    let item2 = Item(context: context)
+    item2.id = UUID()
+    item2.name = "Inception"
+    item2.notes = "Dream within a dream"
+    
+    return ItemListView()
+        .environment(\.managedObjectContext, context)
+}

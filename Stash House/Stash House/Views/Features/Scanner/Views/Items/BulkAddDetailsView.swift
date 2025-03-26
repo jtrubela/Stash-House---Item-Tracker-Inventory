@@ -51,3 +51,17 @@ struct BulkAddDetailsView: View {
         scannedBarcodes.remove(atOffsets: offsets)
     }
 }
+
+struct BulkAddDetailsView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack{
+            BulkAddDetailsView(
+                scannedBarcodes: ["123456789012", "987654321098", "555555555555"],
+                selectedBarcode: "987654321098",
+                onComplete: { selected in
+                    print("Selected: \(selected)")
+                }
+                
+            )    }
+    }
+}

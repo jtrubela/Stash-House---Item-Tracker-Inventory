@@ -10,9 +10,20 @@ import SwiftUI
 
 struct AddedItemDetailView: View {
     let barcode: String
+    @State private var navigateToSearches = false
     
     var body: some View {
         VStack {
+            NavigationLink(
+                destination: ItemDetailSearchesView(barcode: barcode)
+                    .environmentObject(EbayAuthManager.shared)
+                    .environmentObject(TMDBAuthManager.shared),
+                isActive: $navigateToSearches
+            ) {
+                EmptyView()
+            }
+            .hidden()
+            
             Text("Item Details")
                 .font(.title)
                 .padding()
@@ -22,7 +33,8 @@ struct AddedItemDetailView: View {
                 .padding()
             
             Button(action: {
-                print("Perform action for \(barcode)")  // ✅ Replace with real action
+                print("Perform action for \(barcode)")
+                navigateToSearches = true
             }) {
                 Text("Perform Action")
                     .padding()
@@ -37,6 +49,6 @@ struct AddedItemDetailView: View {
 
 struct AddItemDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        AddedItemDetailView(barcode: "0010086010589")
+        AddedItemDetailView(barcode: "00100860105891")
     }
 }

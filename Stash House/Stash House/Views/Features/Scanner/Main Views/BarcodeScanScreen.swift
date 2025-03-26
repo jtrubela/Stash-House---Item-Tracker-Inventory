@@ -144,7 +144,7 @@ struct BarcodeScanScreen: View {
                                     .padding(.horizontal)
                                     .frame(height: 110) // Bulk Add Items List scrollView size
                                 }
-              
+                                
                             }
                             
                             
@@ -290,4 +290,16 @@ struct ScanButtonView: View {
         }
         .shadow(color: shadowColor, radius: 5)
     }
+}
+
+#Preview {
+    ScanButtonView(
+        action: { print("Scan Button Tapped") },
+        destination: nil,
+        iconName: "barcode.viewfinder",
+        title: "Scan",
+        foregroundColor: .white,
+        backgroundColor: .blue,
+        shadowColor: .blue.opacity(0.5)
+    )
 }

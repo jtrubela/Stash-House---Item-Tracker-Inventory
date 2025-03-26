@@ -9,11 +9,20 @@ import SwiftUI
 import CodeScanner
 
 struct ScannerContentView: View {
+    @State private var showDetail = false
     @State private var scannedBarcode: String?
     
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
+                NavigationLink(
+                    destination: AddedItemDetailView(barcode: scannedBarcode ?? ""),
+                    isActive: $showDetail
+                ) {
+                    EmptyView()
+                }
+                .hidden()
+                
                 Image(systemName: "barcode.viewfinder")
                     .resizable()
                     .scaledToFit()
@@ -53,7 +62,7 @@ struct ScannerContentView: View {
         }
         .onChange(of: scannedBarcode) { newBarcode in
             if let barcode = newBarcode {
-                print("Scanned Barcode: \(barcode)")  // ✅ Prints to console
+                showDetail = true
             }
         }
     }
@@ -62,6 +71,9 @@ struct ScannerContentView: View {
 // Preview for SwiftUI
 struct ScannerContentView_Previews: PreviewProvider {
     static var previews: some View {
+        
         ScannerContentView()
+            .environmentObject(EbayAuthManager.shared)
+            .environmentObject(TMDBAuthManager.shared)
     }
 }
