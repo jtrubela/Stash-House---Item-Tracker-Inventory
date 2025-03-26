@@ -1,132 +1,81 @@
 //
-//  ItemDetailSearchesView.swift
+//  ItemDetailView.swift
 //  Stash House
 //
-//  Created by Justin Trubela on 3/25/25.
+//  Created by Justin Trubela on 3/7/25.
 //
 
 
 import SwiftUI
-import TMDBSwift
+import CoreData
 
-struct ItemDetailSearchesView: View {
-    let barcode: String
-    
-    @EnvironmentObject var tmdbAuthManager: TMDBAuthManager
-    @EnvironmentObject var ebayAuthManager: EbayAuthManager
-    
-    @State private var searchText: String = ""
-    @State private var tmdbResults: [MovieMDB] = []
-    @State private var ebayResults: [EbayProduct] = []
-    @State private var isLoadingTMDB = false
-    @State private var isLoadingEbay = false
-    @State private var hasSearched = false
-    
+struct ItemDetailView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+    let item: Item
+    @State private var scannedBarcode: String?
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 20) {
-                HStack {
-                    TextField("Search by title or barcode...", text: $searchText)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                    
-                    Button("Search") {
-                        performSearch(with: searchText)
-                    }
-                    .padding(.trailing)
-                }
-                
-                if isLoadingTMDB || isLoadingEbay {
-                    ProgressView("Searching...")
-                }
-                
-                if !tmdbResults.isEmpty {
-                    Text("🎬 TMDB Results")
-                        .font(.headline)
-                        .padding(.horizontal)
-                    
-                    SearchResultDropdown(
-                        searchResults: tmdbResults,
-                        isLoading: isLoadingTMDB,
-                        onSelect: { selectedMovie in
-                            TMDBService.getMovieDetails(movieID: selectedMovie.id ?? -1) { detailed in
-                                if let movie = detailed {
-                                    TMDBService.saveMovieToCoreData(movie)
-                                }
-                            }
-                        }
-                    )
-                }
-                
-                if !ebayResults.isEmpty {
-                    Text("🛒 eBay Results")
-                        .font(.headline)
-                        .padding(.horizontal)
-                    
-                    ForEach(ebayResults) { product in
-                        VStack(alignment: .leading) {
-                            Text(product.title)
-                                .font(.headline)
-                            
-                            if let imageURL = product.imageURL, let url = URL(string: imageURL) {
-                                AsyncImage(url: url) { image in
-                                    image.resizable()
-                                        .scaledToFit()
-                                        .frame(height: 100)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                            }
-                            
-                            Text(product.price)
-                            Link("View on eBay", destination: URL(string: product.itemWebUrl)!)
-                                .font(.caption)
-                        }
-                        .padding(.horizontal)
-                        Divider()
-                    }
-                }
+        VStack {
+            Text(item.name ?? "Unknown Item")
+                .font(.largeTitle)
+                .padding()
+            
+            if let imageData = item.image, let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 200)
+            } else {
+                Text("No Image Available")
+                    .foregroundColor(.gray)
             }
-            .padding(.vertical)
-        }
-        .navigationTitle("Item Lookup")
-        .onAppear {
-            // Only assign barcode once, when first loaded
-            if !hasSearched {
-                searchText = barcode
-                performSearch(with: barcode)
-                hasSearched = true
+            
+            Text("Category: \(item.category ?? "N/A")")
+                .font(.headline)
+            
+            Text("Notes: \(item.notes ?? "No Notes")")
+                .padding()
+            
+            // Display scanned barcode
+            if let barcode = scannedBarcode {
+                Text("Barcode: \(barcode)")
+                    .font(.subheadline)
+                    .foregroundColor(.blue)
+                    .padding()
             }
-        }
-    }
-    
-    func performSearch(with query: String) {
-        // TMDB search
-        if query.count > 2 {
-            isLoadingTMDB = true
-            TMDBService.searchMovies(query: query) { results in
-                DispatchQueue.main.async {
-                    self.tmdbResults = results
-                    self.isLoadingTMDB = false
-                }
+            
+            // New button to navigate to Barcode Scanner
+            NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode)) {
+                Text("Scan Barcode")
+                    .padding()
+                    .frame(maxWidth: .infinity)
+                    .background(Color.green)
+                    .foregroundColor(.white)
+                    .cornerRadius(10)
             }
+            .padding()
+            
+            Spacer()
         }
-        
-        // eBay search
-        isLoadingEbay = true
-        EbayAPIService.fetchProducts(keyword: query, token: ebayAuthManager.bearerToken) { results in
-            DispatchQueue.main.async {
-                self.ebayResults = results
-                self.isLoadingEbay = false
-            }
-        }
+        .navigationTitle("Item Details")
     }
 }
 
-
 #Preview {
-    ItemDetailSearchesView(barcode: "0123456789012")
-        .environmentObject(TMDBAuthManager.shared)
-        .environmentObject(EbayAuthManager.shared)
+    let context = PersistenceController.shared.container.viewContext
+    
+    let sampleItem = Item(context: context)
+    sampleItem.name = "Vintage Watch"
+    sampleItem.category = "Accessories"
+    sampleItem.notes = "This is a limited edition timepiece."
+    
+    // Optional: Include mock image
+    if let image = UIImage(systemName: "clock") {
+        sampleItem.image = image.pngData()
+    }
+    
+    return NavigationView {
+        ItemDetailView(item: sampleItem)
+            .environment(\.managedObjectContext, context)
+    }
 }
