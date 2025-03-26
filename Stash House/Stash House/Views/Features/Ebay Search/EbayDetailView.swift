@@ -4,7 +4,6 @@
 //
 //  Created by Justin Trubela on 3/23/25.
 //
-//
 
 
 import SwiftUI
@@ -81,8 +80,16 @@ struct EbayDetailView: View {
                         DisclosureGroup("Additional Details") {
                             if let raw = detail.rawJSON {
                                 let excludedKeys = Set([
-                                    "itemId", "title", "shortDescription", "gtin", "epid", "categoryPath",
-                                    "categoryIdPath", "image", "localizedAspects", "itemWebUrl"
+                                    "itemId",
+                                    "title",
+                                    "shortDescription",
+                                    "gtin",
+                                    "epid",
+                                    "categoryPath",
+                                    "categoryIdPath",
+                                    "image",
+                                    "localizedAspects",
+                                    "itemWebUrl"
                                 ])
                                 
                                 ForEach(raw.keys.sorted(), id: \.self) { key in

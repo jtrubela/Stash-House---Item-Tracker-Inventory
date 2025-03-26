@@ -4,7 +4,6 @@
 //
 //  Created by Justin Trubela on 3/23/25.
 //
-//
 
 
 import SwiftUI
@@ -13,6 +12,11 @@ struct EbaySearchView: View {
     @EnvironmentObject var authManager: EbayAuthManager
     @State private var searchTerm = "Shrek 3"
     @State private var products: [EbayProduct] = []
+    
+    init(barcode: String) {
+        _searchTerm = State(initialValue: barcode)
+    }
+    
     
     var body: some View {
         NavigationStack {
@@ -62,5 +66,6 @@ struct EbaySearchView: View {
 }
 
 #Preview {
-    EbaySearchView()
+    EbaySearchView(barcode: "0123456789012")
+        .environmentObject(EbayAuthManager.shared)
 }

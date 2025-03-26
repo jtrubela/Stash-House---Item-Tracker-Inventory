@@ -89,3 +89,9 @@ struct MyCollectionsView: View {
         }
     }
 }
+
+struct MyCollectionsView_Previews: PreviewProvider {
+    static var previews: some View {
+        MyCollectionsView()
+    }
+}
