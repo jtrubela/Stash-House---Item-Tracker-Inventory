@@ -1,21 +1,12 @@
 //
-//  EbayProduct.swift
+//  EbayProductDetail.swift
 //  Stash House
 //
-//  Created by Justin Trubela on 3/23/25.
-//
+//  Created by Justin Trubela on 3/25/25.
 //
 
 import Foundation
-
-struct EbayProduct: Codable, Identifiable {
-    let id: String
-    let title: String
-    let price: String
-    let imageURL: String?
-    let itemWebUrl: String
-}
-
+import SwiftUI
 
 struct EbayProductDetail: Identifiable {
     let rawJSON: [String: Any]?
@@ -185,4 +176,3 @@ extension EbayProductDetail: Decodable {
 extension CodingUserInfoKey {
     static let dataKey = CodingUserInfoKey(rawValue: "rawData")!
 }
-

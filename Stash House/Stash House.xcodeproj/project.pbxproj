@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */; };
 		3DA7DEBB2D7D33B9005AA052 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 3DA7DEBA2D7D33B9005AA052 /* CodeScanner */; };
 		3DD9D00C2D7CB7A1000647E8 /* TMDb in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00B2D7CB7A1000647E8 /* TMDb */; };
 		3DD9D00F2D7CC9C7000647E8 /* TMDBSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3DD9D00E2D7CC9C7000647E8 /* TMDBSwift */; };
@@ -16,7 +15,6 @@
 
 /* Begin PBXFileReference section */
 		3D4C53652A4FD13D003E334F /* Stash House.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Stash House.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stash_HouseApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -40,12 +38,13 @@
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		3D0D3FAE2D93BE4900F0634C /* Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utilities; sourceTree = "<group>"; };
+		3D0D3FB82D93BEAD00F0634C /* App */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = App; sourceTree = "<group>"; };
+		3D0D3FC72D93BF0C00F0634C /* Services */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Services; sourceTree = "<group>"; };
 		3D3263202D7B2D1800C2F72E /* Models */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3DD9D04D2D7CEB90000647E8 /* PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Models; sourceTree = "<group>"; };
-		3D3263232D7B2D8300C2F72E /* App Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Resources"; sourceTree = "<group>"; };
+		3D3263232D7B2D8300C2F72E /* Resources */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Resources; sourceTree = "<group>"; };
 		3D3263242D7B2DF200C2F72E /* Supporting Files */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (3D8441EE2D7CF1CF00C70DEE /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = "Supporting Files"; sourceTree = "<group>"; };
 		3DA3CF4D2D7B5031009C0E0C /* Views */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Views; sourceTree = "<group>"; };
-		3DA7DF412D7D42CE005AA052 /* App Utilities */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "App Utilities"; sourceTree = "<group>"; };
-		3DD2F6C82D90DEAE00DFBAA9 /* Auth */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Auth; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,12 +81,12 @@
 		3D4C53672A4FD13D003E334F /* Stash House */ = {
 			isa = PBXGroup;
 			children = (
-				3D4C53682A4FD13D003E334F /* Stash_HouseApp.swift */,
-				3DD2F6C82D90DEAE00DFBAA9 /* Auth */,
+				3D0D3FB82D93BEAD00F0634C /* App */,
+				3D0D3FAE2D93BE4900F0634C /* Utilities */,
+				3D0D3FC72D93BF0C00F0634C /* Services */,
 				3D3263202D7B2D1800C2F72E /* Models */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
-				3DA7DF412D7D42CE005AA052 /* App Utilities */,
-				3D3263232D7B2D8300C2F72E /* App Resources */,
+				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 			);
 			path = "Stash House";
@@ -109,12 +108,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				3D0D3FAE2D93BE4900F0634C /* Utilities */,
+				3D0D3FB82D93BEAD00F0634C /* App */,
+				3D0D3FC72D93BF0C00F0634C /* Services */,
 				3D3263202D7B2D1800C2F72E /* Models */,
-				3D3263232D7B2D8300C2F72E /* App Resources */,
+				3D3263232D7B2D8300C2F72E /* Resources */,
 				3D3263242D7B2DF200C2F72E /* Supporting Files */,
 				3DA3CF4D2D7B5031009C0E0C /* Views */,
-				3DA7DF412D7D42CE005AA052 /* App Utilities */,
-				3DD2F6C82D90DEAE00DFBAA9 /* Auth */,
 			);
 			name = "Stash House";
 			productName = "Stash House";
@@ -174,7 +174,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3D4C53692A4FD13D003E334F /* Stash_HouseApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +311,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Stash House/App Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Stash House/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -343,7 +342,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Stash House/App Resources/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Stash House/Resources/Preview Content\"";
 				DEVELOPMENT_TEAM = 6CD78A686T;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
