@@ -87,6 +87,7 @@ struct LibraryView: View {
     
     //scanned code
     @State private var scannedCode: String? = nil
+    @State private var scannedBarcodes: Set<String> = []
 
     @Binding var isScanning: Bool
     @Binding var showFileImporter: Bool
@@ -187,8 +188,15 @@ struct LibraryView: View {
                 }
             }
             .sheet(isPresented: $isScanning) {
-                BarcodeScanScreen(scannedCode: $scannedCode)
+                BarcodeScanScreen(
+                    scannedCode: $scannedCode,
+                    scannedBarcodes: $scannedBarcodes,
+                    onScanComplete: { newBarcodes in
+                        scannedBarcodes = newBarcodes
+                    }
+                )
             }
+
 
             
             .sheet(isPresented: $showManualAddView) {
@@ -660,7 +668,7 @@ struct MyCollectionsView: View {
     @State private var isScanning = false
     @State private var scannedItems: [ScannedItem] = []
     @State private var scannedCode: String? = nil
-
+    @State private var scannedBarcodes: Set<String> = []
     
     var collections: [Collection] {
         switch selectedType {
@@ -734,8 +742,12 @@ struct MyCollectionsView: View {
                 }
             }
             .sheet(isPresented: $isScanning) {
-                BarcodeScanScreen(scannedCode: $scannedCode)
+                BarcodeScanScreen(
+                    scannedCode: $scannedCode,
+                    scannedBarcodes: $scannedBarcodes
+                )
             }
+
         }
     }
 }

@@ -58,13 +58,14 @@ struct ItemListView: View {
 //
 
 
-import SwiftUI
-import CoreData
+//import SwiftUI
+//import CoreData
 
 struct ItemDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     let item: Item
     @State private var scannedBarcode: String?
+    @State private var scannedBarcodes: Set<String> = []
     
     var body: some View {
         VStack {
@@ -97,7 +98,7 @@ struct ItemDetailView: View {
             }
             
             // New button to navigate to Barcode Scanner
-            NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode)) {
+            NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode, scannedBarcodes: $scannedBarcodes)) {
                 Text("Scan Barcode")
                     .padding()
                     .frame(maxWidth: .infinity)
@@ -149,7 +150,7 @@ struct ItemDetailView: View {
 //
 
 
-import SwiftUI
+//import SwiftUI
 import TMDBSwift
 
 struct ItemDetailSearchesView: View {
@@ -283,12 +284,17 @@ struct ItemDetailSearchesView: View {
 //
 
 
-import SwiftUI
+//import SwiftUI
 
 struct BulkAddDetailsView: View {
     @State var scannedBarcodes: [String]
     var selectedBarcode: String?  // ✅ Highlights the selected barcode
     var onComplete: (([String]) -> Void)?
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @Environment(\.dismiss) private var dismiss
+    @State private var isAdded = false
+    
     
     var body: some View {
         NavigationStack {
@@ -310,15 +316,35 @@ struct BulkAddDetailsView: View {
                 }
                 
                 Button(action: {
-                    onComplete?(scannedBarcodes)  // ✅ Send selected barcodes to ContentView
+                    for barcode in scannedBarcodes {
+                        let newItem = Item(context: viewContext)
+                        newItem.id = UUID()
+                        newItem.name = "New Item"
+                        newItem.notes = "Scanned in bulk add."
+                        newItem.barcode = barcode
+                        newItem.category = "Uncategorized"
+                    }
+                    
+                    do {
+                        try viewContext.save()
+                        isAdded = true
+                        onComplete?([])
+                        dismiss() // ✅ This will dismiss the BarcodeScanScreen sheet
+                    } catch {
+                        print("❌ Failed to save bulk items: \\(error)")
+                    }
                 }) {
-                    Text("Add to Inventory")
+                    Text(isAdded ? "✅ Added to Library" : "Add All to Library")
                         .padding()
-                        .background(Color.blue)
+                        .frame(maxWidth: .infinity)
+                        .background(isAdded ? Color.green : Color.blue)
                         .foregroundColor(.white)
                         .cornerRadius(10)
                 }
+                .disabled(isAdded)
                 .padding()
+
+
             }
         }
     }
@@ -351,8 +377,8 @@ struct BulkAddDetailsView_Previews: PreviewProvider {
 //  Created by Justin Trubela on 3/7/25.
 //
 
-import SwiftUI
-import TMDBSwift
+//import SwiftUI
+//import TMDBSwift
 
 
 struct AddItemAndSearchView: View {
@@ -808,11 +834,21 @@ extension MovieMDB {
 //
 
 
-import SwiftUI
+//import SwiftUI
 
 struct AddedItemDetailView: View {
     let barcode: String
     @State private var navigateToSearches = false
+    
+    @Environment(\.managedObjectContext) private var viewContext
+    @State private var isAdded = false
+    
+    @Environment(\.dismiss) private var dismiss
+    var onComplete: (([String]) -> Void)? = nil
+    
+    @State private var navigateToSingleAdd = false
+
+    
     
     var body: some View {
         VStack {
@@ -833,17 +869,31 @@ struct AddedItemDetailView: View {
             Text("Barcode: \(barcode)")
                 .font(.headline)
                 .padding()
-            
+
             Button(action: {
-                print("Perform action for \(barcode)")
-                navigateToSearches = true
+                let newItem = Item(context: viewContext)
+                newItem.id = UUID()
+                newItem.barcode = barcode
+                newItem.name = "New Item from Barcode"
+                newItem.notes = "Manually added from scan."
+                newItem.category = "Unknown"
+                
+                do {
+                    try viewContext.save()
+                    isAdded = true
+                    onComplete?([barcode])
+                    dismiss() // ✅ Dismisses the BarcodeScanScreen sheet
+                } catch {
+                    print("❌ Error saving item: \(error.localizedDescription)")
+                }
             }) {
-                Text("Perform Action")
+                Text(isAdded ? "✅ Added!" : "Add to Library")
                     .padding()
-                    .background(Color.green)
+                    .background(isAdded ? Color.green : Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(10)
             }
+            .disabled(isAdded)
             .padding()
         }
     }

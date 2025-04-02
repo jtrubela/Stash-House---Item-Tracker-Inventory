@@ -11,14 +11,29 @@ import CoreData
 
 struct BarcodeScanScreen: View {
     @Binding var scannedCode: String?
-    @State private var bulkScanMode = false
-    @State private var isFlashlightOn = false
+    @Binding var scannedBarcodes: Set<String>
+    
     @State private var barcodeType: AVMetadataObject.ObjectType = .ean13
+    @State private var selectedBarcode: String?
+    @State private var singleBarcodeForSheet: String?
+    
+    @State private var isFlashlightOn = false
+    
     @State private var manualEntryMode = false
     @State private var manualBarcode = ""
-    @State private var scannedBarcodes: Set<String> = []
+    
+    @State private var bulkScanMode = false
     @State private var navigateToBulkAdd = false
-    @State private var selectedBarcode: String?
+    
+    @State private var navigateToSingleAdd = false
+    @State private var showSingleAddSheet = false
+    
+    
+    @State private var showAlreadyExistsAlert = false
+    @State private var existingItemTitle: String = "This item"
+
+    
+    
     
     @Environment(\.presentationMode) var presentationMode
     @Environment(\.managedObjectContext) private var viewContext
@@ -29,14 +44,21 @@ struct BarcodeScanScreen: View {
     var matchedItemRequest: FetchRequest<Item>
     var matchedItem: Item? { matchedItemRequest.wrappedValue.first }
     
-    init(scannedCode: Binding<String?>) {
+    init(
+        scannedCode: Binding<String?>,
+        scannedBarcodes: Binding<Set<String>>,
+        onScanComplete: ((Set<String>) -> Void)? = nil
+    ) {
         self._scannedCode = scannedCode
+        self._scannedBarcodes = scannedBarcodes
+        self.onScanComplete = onScanComplete
         self.matchedItemRequest = FetchRequest<Item>(
             entity: Item.entity(),
             sortDescriptors: [],
             predicate: NSPredicate(format: "barcode == %@", scannedCode.wrappedValue ?? "")
         )
     }
+    
     
     var body: some View {
         NavigationStack {
@@ -61,11 +83,34 @@ struct BarcodeScanScreen: View {
                         BarcodeScannerView(
                             scannedCode: $scannedCode,
                             barcodeType: barcodeType,
+                            
                             onScanComplete: { barcode in
+                                // Check if barcode already exists in Core Data
+                                let request: NSFetchRequest<Item> = Item.fetchRequest()
+                                request.predicate = NSPredicate(format: "barcode == %@", barcode)
+                                request.fetchLimit = 1
+                                let exists = (try? viewContext.count(for: request)) ?? 0 > 0
+                                
+                                if exists {
+                                    existingItemTitle = barcode
+                                    showAlreadyExistsAlert = true
+                                    return
+                                }
+                                
                                 scannedBarcodes.insert(barcode)
                                 scannedCode = barcode
                                 selectedBarcode = barcode
-                            },
+                                
+                                if scannedBarcodes.count > 2 {
+                                    bulkScanMode = true
+                                }
+                                
+                                if !bulkScanMode && scannedBarcodes.count == 1 {
+                                    singleBarcodeForSheet = barcode
+                                    showSingleAddSheet = true
+                                }
+                            }
+,
                             isFlashlightOn: $isFlashlightOn
                         )
                         .edgesIgnoringSafeArea(.horizontal)
@@ -88,62 +133,115 @@ struct BarcodeScanScreen: View {
                                     VStack {
                                         VStack(alignment: .leading, spacing: 15) {
                                             Text("""
-        1. Point Camera and center barcode within box.
-        2. Box will turn green when barcode is scanned.
-        3. Bulk Scan: Allows you to scan multiple items.
-        4. Manual Entry: Enter barcode manually.
-        """)
+                        1. Point Camera and center barcode within box.
+                        2. Box will turn green when barcode is scanned.
+                        3. Bulk Scan: Allows you to scan multiple items.
+                        4. Manual Entry: Enter barcode manually.
+                        """)
                                             .padding(.vertical)
                                             Text("""
-        - Barcode must be upright.
-        - Avoid shadows and glares.
-        - Accepts 8 and 12 digit barcodes.
-        """)
+                        - Barcode must be upright.
+                        - Avoid shadows and glares.
+                        - Accepts 8 and 12 digit barcodes.
+                        """)
                                         }
                                         .multilineTextAlignment(.leading)
                                         .fixedSize(horizontal: false, vertical: true)
                                     }
                                     .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
                                     .font(.caption2)
-                                } else {
-                                    NavigationLink(destination: BulkAddDetailsView(scannedBarcodes: Array(scannedBarcodes), onComplete: { newList in
-                                        onScanComplete?(Set(newList))
-                                        presentationMode.wrappedValue.dismiss()
-                                    })) {
-                                        ScanButtonView(
-                                            action: nil,
-                                            destination: AnyView(BulkAddDetailsView(scannedBarcodes: Array(scannedBarcodes), onComplete: { newList in
-                                                onScanComplete?(Set(newList))
-                                                presentationMode.wrappedValue.dismiss()
-                                            })),
-                                            iconName: "list.bullet.rectangle",
-                                            title: "Scanned Items",
-                                            foregroundColor: .secondary,
-                                            backgroundColor: .green,
-                                            shadowColor: Color.green.opacity(0.5)
-                                        )
-                                        .frame(width: 90, height: 130)
+                                }
+                                
+                                else {
+                                    if scannedBarcodes.count > 1 {
+                                        NavigationLink(
+                                            destination: BulkAddDetailsView(
+                                                scannedBarcodes: Array(scannedBarcodes),
+                                                onComplete: { newList in
+                                                    onScanComplete?(Set(newList))
+                                                    presentationMode.wrappedValue.dismiss()
+                                                }
+                                            )
+                                        ) {
+                                            ScanButtonView(
+                                                action: nil,
+                                                destination: AnyView(
+                                                    BulkAddDetailsView(
+                                                        scannedBarcodes: Array(scannedBarcodes),
+                                                        onComplete: { newList in
+                                                            onScanComplete?(Set(newList))
+                                                            presentationMode.wrappedValue.dismiss()
+                                                        }
+                                                    )
+                                                ),
+                                                iconName: "list.bullet.rectangle",
+                                                title: "Scanned Items",
+                                                foregroundColor: .secondary,
+                                                backgroundColor: .green,
+                                                shadowColor: Color.green.opacity(0.5)
+                                            )
+                                            .frame(width: 90, height: 130)
+                                        }
+                                        
                                     }
                                     
-                                    ScrollView {
-                                        VStack {
-                                            ForEach(Array(scannedBarcodes), id: \.self) { barcode in
-                                                NavigationLink(destination: BulkAddDetailsView(scannedBarcodes: [barcode], onComplete: { newList in
-                                                    onScanComplete?(Set(newList))
-                                                })) {
-                                                    Text(barcode)
-                                                        .padding(.horizontal, 10)
-                                                        .padding(.vertical, 11)
-                                                        .background(Color.gray.opacity(0.2))
-                                                        .cornerRadius(8)
-                                                        .foregroundColor(.secondary)
-                                                        .font(.system(size: 18, weight: .medium, design: .monospaced))
+                                    if bulkScanMode || scannedBarcodes.count >= 1 {
+                                        // ✅ Show bulk scan UI
+                                        NavigationLink(destination: BulkAddDetailsView(scannedBarcodes: Array(scannedBarcodes), onComplete: { newList in
+                                            onScanComplete?(Set(newList))
+                                            presentationMode.wrappedValue.dismiss()
+                                        })) {
+                                        }
+                                        
+                                        ScrollView {
+                                            VStack {
+                                                ForEach(Array(scannedBarcodes), id: \.self) { barcode in
+                                                    if isBarcodeInLibrary(barcode) {
+                                                        // Barcode already exists in library — show non-clickable red entry
+                                                        Text(barcode)
+                                                            .padding(.horizontal, 10)
+                                                            .padding(.vertical, 11)
+                                                            .background(Color.red.opacity(0.2))
+                                                            .cornerRadius(8)
+                                                            .foregroundColor(.red)
+                                                            .font(.system(size: 18, weight: .medium, design: .monospaced))
+                                                    } else {
+                                                        // Barcode not in library — make it tappable
+                                                        NavigationLink(
+                                                            destination: AddedItemDetailView(
+                                                                barcode: barcode,
+                                                                onComplete: { removed in
+                                                                    scannedBarcodes.subtract(removed)
+                                                                    onScanComplete?(scannedBarcodes)
+                                                                    
+                                                                    // Only reset state, not full dismiss
+                                                                    scannedCode = nil
+                                                                    selectedBarcode = nil
+                                                                    singleBarcodeForSheet = nil
+                                                                    showSingleAddSheet = false
+                                                                    
+                                                                    if scannedBarcodes.isEmpty {
+                                                                        presentationMode.wrappedValue.dismiss()
+                                                                    }
+                                                                }
+                                                            )
+                                                        ) {
+                                                            Text(barcode)
+                                                                .padding(.horizontal, 10)
+                                                                .padding(.vertical, 11)
+                                                                .background(Color.gray.opacity(0.2))
+                                                                .cornerRadius(8)
+                                                                .foregroundColor(.secondary)
+                                                                .font(.system(size: 18, weight: .medium, design: .monospaced))
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
+                                        .padding(.horizontal)
+                                        .frame(height: 110)
+                                        
                                     }
-                                    .padding(.horizontal)
-                                    .frame(height: 110)
                                 }
                             }
                             
@@ -202,44 +300,87 @@ struct BarcodeScanScreen: View {
                     }
                     
                     Divider()
-                        .sheet(isPresented: $manualEntryMode) {
-                            VStack {
-                                Text("Enter Barcode Manually")
-                                    .font(.title)
-                                    .padding()
-                                
-                                TextField("Enter Barcode", text: $manualBarcode)
-                                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                                    .padding()
-                                
-                                Button(action: {
-                                    scannedBarcodes.insert(manualBarcode)
-                                    if !manualBarcode.isEmpty {
-                                        scannedBarcodes.insert(manualBarcode)
-                                        scannedCode = manualBarcode
-                                        selectedBarcode = manualBarcode
-                                        manualEntryMode = false
-                                    }
-                                }) {
-                                    Text("Submit")
-                                        .padding()
-                                        .background(Color.green)
-                                        .foregroundColor(.white)
-                                        .cornerRadius(10)
-                                }
-                            }
-                        }
                 }
             }
+            .sheet(isPresented: $manualEntryMode) {
+                VStack {
+                    Text("Enter Barcode Manually")
+                        .font(.title)
+                        .padding()
+                    
+                    TextField("Enter Barcode", text: $manualBarcode)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    
+                    Button(action: {
+                        scannedBarcodes.insert(manualBarcode)
+                        if !manualBarcode.isEmpty {
+                            scannedBarcodes.insert(manualBarcode)
+                            scannedCode = manualBarcode
+                            selectedBarcode = manualBarcode
+                            manualEntryMode = false
+                        }
+                    }) {
+                        Text("Submit")
+                            .padding()
+                            .background(Color.green)
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                }
+            }
+            
+            .sheet(isPresented: $showSingleAddSheet) {
+                if let barcode = singleBarcodeForSheet {
+                    AddedItemDetailView(
+                        barcode: barcode,
+                        onComplete: { removed in
+                            scannedBarcodes.subtract(removed)
+                            onScanComplete?(scannedBarcodes)
+                            
+                            // If no barcodes left, exit
+                            if scannedBarcodes.isEmpty {
+                                presentationMode.wrappedValue.dismiss()
+                            } else {
+                                // Reset only selection so user can pick another from the list
+                                scannedCode = nil
+                                selectedBarcode = nil
+                                singleBarcodeForSheet = nil
+                                showSingleAddSheet = false
+                            }
+                        }
+                    )
+                }
+            }
+            
         }
+        .alert(isPresented: $showAlreadyExistsAlert) {
+            Alert(
+                title: Text("Already in Library"),
+                message: Text("\(existingItemTitle) has already been added."),
+                dismissButton: .default(Text("OK"))
+            )
+        }
+
         .navigationBarBackButtonHidden()
     }
+    
+    private func isBarcodeInLibrary(_ code: String) -> Bool {
+        let request: NSFetchRequest<Item> = Item.fetchRequest()
+        request.predicate = NSPredicate(format: "barcode == %@", code)
+        request.fetchLimit = 1
+        return (try? viewContext.count(for: request)) ?? 0 > 0
+    }
+
 }
 
 struct BarcodeScanScreen_Previews: PreviewProvider {
     static var previews: some View {
-        BarcodeScanScreen(scannedCode: .constant(nil))
-            .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        BarcodeScanScreen(
+            scannedCode: .constant(nil),
+            scannedBarcodes: .constant(["0123456789012"])
+        )
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
 
@@ -308,7 +449,10 @@ import CodeScanner
 
 struct ScannerContentView: View {
     @State private var showDetail = false
-    @State private var scannedBarcode: String?
+    
+    @State private var scannedBarcode: String? = nil
+    @State private var scannedBarcodes: Set<String> = []
+    
     
     var body: some View {
         NavigationView {
@@ -343,7 +487,7 @@ struct ScannerContentView: View {
                         .foregroundColor(.gray)
                 }
                 
-                NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode)) {
+                NavigationLink(destination: BarcodeScanScreen(scannedCode: $scannedBarcode, scannedBarcodes: $scannedBarcodes)) {
                     Text("Scan Barcode")
                         .padding()
                         .frame(maxWidth: .infinity)
@@ -353,13 +497,14 @@ struct ScannerContentView: View {
                 }
                 .padding()
                 
+                
                 Spacer()
             }
             .padding()
             .navigationTitle("Stash House")
         }
         .onChange(of: scannedBarcode) { newBarcode in
-            if let barcode = newBarcode {
+            if let scannedBarcode = newBarcode {
                 showDetail = true
             }
         }

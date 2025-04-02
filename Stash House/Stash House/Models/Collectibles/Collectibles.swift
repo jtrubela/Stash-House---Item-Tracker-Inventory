@@ -269,7 +269,7 @@ extension CodingUserInfoKey {
 import TMDBSwift
 import TMDb
 
-extension MovieMDB: Identifiable {
+extension MovieMDB: @retroactive Identifiable {
     public var safeID: Int {
         return self.id ?? -1 // Provide a fallback non-optional ID
     }
