@@ -293,7 +293,7 @@ struct BulkAddDetailsView: View {
     var body: some View {
         NavigationStack {
             VStack {
-                Text("Bulk Add Details")
+                Text("Add Details")
                     .font(.title)
                     .padding()
                 

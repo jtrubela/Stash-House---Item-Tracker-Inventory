@@ -9,7 +9,7 @@ import SwiftUI
 struct ContentView: View {
     //Inject Core Data into this view
     @Environment(\.managedObjectContext) private var viewContext
-    
+    @State private var scannedCode: String? = nil
     @State private var scannedItems: [ScannedItem] = []
     @State private var isScanning = false
     @State private var showFileImporter = false
@@ -73,7 +73,7 @@ struct ContentView_Previews: PreviewProvider {
 //  Created by Justin Trubela on 3/8/25.
 //
 
-import SwiftUI
+//import SwiftUI
 import CoreData
 
 struct LibraryView: View {
@@ -261,7 +261,7 @@ struct LibraryView: View {
 
 
 
-import SwiftUI
+//import SwiftUI
 
 struct AddCollectibleView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -426,13 +426,17 @@ extension Binding {
 //
 
 
-import SwiftUI
+//import SwiftUI
 import CodeScanner  // ✅ Import CodeScanner framework
+import AVFoundation
+
 
 struct MyCollection: View {
     @State private var selectedType: CollectionType = .cards
     @State private var isScanning = false
     @State private var scannedItems: [ScannedItem] = []
+    @State private var scannedCode: String? = nil
+
     
     var collections: [Collection] {
         switch selectedType {
@@ -506,7 +510,14 @@ struct MyCollection: View {
                 }
             }
             .sheet(isPresented: $isScanning) {
-                ScannerView(isScanning: $isScanning, isBulkScan: .constant(false), scannedItems: $scannedItems)
+                BarcodeScannerView(
+                    scannedCode: $scannedCode,
+                    barcodeType: .ean13,
+                    onScanComplete: { code in
+                        print("Scanned: \(code)")
+                    },
+                    isFlashlightOn: .constant(false)
+                )
             }
         }
     }
@@ -642,12 +653,14 @@ func CardView(_ collectibleItem: Collectible) -> some View {
 //  Created by Justin Trubela on 3/8/25.
 //
 
-import SwiftUI
+//import SwiftUI
 
 struct MyCollectionsView: View {
     @State private var selectedType: CollectionType = .cards
     @State private var isScanning = false
     @State private var scannedItems: [ScannedItem] = []
+    @State private var scannedCode: String? = nil
+
     
     var collections: [Collection] {
         switch selectedType {
@@ -721,7 +734,7 @@ struct MyCollectionsView: View {
                 }
             }
             .sheet(isPresented: $isScanning) {
-                ScannerView(isScanning: $isScanning, isBulkScan: .constant(false), scannedItems: $scannedItems)
+                BarcodeScanScreen(scannedCode: $scannedCode)
             }
         }
     }
