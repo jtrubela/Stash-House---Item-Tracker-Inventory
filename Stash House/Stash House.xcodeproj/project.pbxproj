@@ -32,7 +32,7 @@
 			isa = PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet;
 			buildPhase = 3D4C53632A4FD13D003E334F /* Resources */;
 			membershipExceptions = (
-				"Movies/MovieMDB+Identifiable.swift",
+				"Unused/Movies/Unused/MovieMDB+Identifiable.swift",
 			);
 		};
 /* End PBXFileSystemSynchronizedGroupBuildPhaseMembershipExceptionSet section */

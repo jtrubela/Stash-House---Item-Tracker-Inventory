@@ -1,0 +1,62 @@
+{
+  "path" : [
+    "cards"
+  ],
+  "id" : "cards",
+  "fields" : [
+    {
+      "id" : "Field",
+      "name" : "Field",
+      "type" : "string"
+    },
+    {
+      "id" : "Title",
+      "name" : "Title",
+      "type" : "string"
+    },
+    {
+      "id" : "Image",
+      "name" : "Image",
+      "type" : "image_path"
+    },
+    {
+      "id" : "Year",
+      "name" : "Year",
+      "type" : "date"
+    },
+    {
+      "id" : "createdAt",
+      "name" : "Creation date",
+      "type" : "date"
+    },
+    {
+      "id" : "modifiedAt",
+      "name" : "Modified date",
+      "type" : "date"
+    },
+    {
+      "id" : "shortID",
+      "name" : "Short ID",
+      "type" : "string"
+    },
+    {
+      "id" : "weight",
+      "name" : "Manual sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "man_weight",
+      "name" : "Managed docs sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "entity",
+      "name" : "Entity",
+      "type" : "string"
+    }
+  ],
+  "name" : "Cards",
+  "subcollections" : [
+
+  ]
+}
