@@ -84,6 +84,10 @@ struct LibraryView: View {
         animation: .default
     ) private var items: FetchedResults<Item>
     
+    
+    //scanned code
+    @State private var scannedCode: String? = nil
+
     @Binding var isScanning: Bool
     @Binding var showFileImporter: Bool
     @Binding var searchText: String
@@ -183,10 +187,9 @@ struct LibraryView: View {
                 }
             }
             .sheet(isPresented: $isScanning) {
-                
-//                BarcodeScanScreen()
-//                ScannerView(isScanning: $isScanning, isBulkScan: .constant(false), scannedItems: .constant([])) // Or your real bindings
+                BarcodeScanScreen(scannedCode: $scannedCode)
             }
+
             
             .sheet(isPresented: $showManualAddView) {
                 AddCollectibleView() // Manual form view you already created
