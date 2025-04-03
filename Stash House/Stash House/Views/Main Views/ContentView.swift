@@ -9,8 +9,9 @@ import SwiftUI
 struct ContentView: View {
     //Inject Core Data into this view
     @Environment(\.managedObjectContext) private var viewContext
-    @State private var scannedCode: String? = nil
-    @State private var scannedItems: [ScannedItem] = []
+    
+//    @State private var scannedCode: String? = nil
+//    @State private var scannedItems: [ScannedItem] = []
     @State private var isScanning = false
     @State private var showFileImporter = false
     @State private var searchText = ""
@@ -111,13 +112,26 @@ struct LibraryView: View {
                         ZStack(alignment: .topTrailing) {
                             NavigationLink(destination: EditCollectibleView(item: item)) {
                                 VStack {
-                                    Image(systemName: "photo")
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(height: 100)
-                                        .cornerRadius(10)
-                                    Text(item.title ?? "Untitled")
-                                        .font(.headline)
+                                    if let imageData = item.image, let uiImage = UIImage(data: imageData) {
+                                        Image(uiImage: uiImage)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 100)
+                                            .cornerRadius(10)
+                                    } else {
+                                        Image(systemName: "photo")
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(height: 100)
+                                            .cornerRadius(10)
+                                            .foregroundColor(.gray)
+                                    }
+                                    Text(item.title?.isEmpty == false ? item.title! :
+                                            item.barcode?.isEmpty == false ? item.barcode! :
+                                            item.name?.isEmpty == false ? item.name! :
+                                            item.notes?.isEmpty == false ? item.notes! :
+                                            "Untitled"
+                                    )                                        .font(.headline)
                                         .multilineTextAlignment(.center)
                                     Text(item.category ?? "")
                                         .font(.subheadline)
@@ -270,6 +284,8 @@ struct LibraryView: View {
 
 
 //import SwiftUI
+import PhotosUI
+
 
 struct AddCollectibleView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -278,13 +294,21 @@ struct AddCollectibleView: View {
     @State private var selectedCategory = "Movie"
     @State private var title = ""
     @State private var barcode = ""
+    
+    @State private var image = Image(systemName: "question.mark")
+    @State private var selectedItem: PhotosPickerItem? = nil
+    @State private var selectedImageData: Data? = nil
+
+    
     @State private var notes = ""
     
     // Custom fields
     @State private var director = ""
     @State private var releaseYear = ""
+    
     @State private var cardNumber = ""
     @State private var playerName = ""
+    
     @State private var platform = ""
     @State private var publisher = ""
     
@@ -304,6 +328,29 @@ struct AddCollectibleView: View {
                 
                 Section(header: Text("Basic Info")) {
                     TextField("Title", text: $title)
+
+                    Section(header: Text("Image")) {
+                        PhotosPicker(
+                            selection: $selectedItem,
+                            matching: .images,
+                            photoLibrary: .shared()
+                        ) {
+                            HStack {
+                                Image(systemName: "photo.on.rectangle")
+                                Text("Select Image")
+                            }
+                        }
+                        
+                        if let imageData = selectedImageData, let uiImage = UIImage(data: imageData) {
+                            Image(uiImage: uiImage)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(height: 150)
+                                .cornerRadius(8)
+                        }
+                    }
+
+                    
                     TextField("Barcode", text: $barcode)
                 }
                 
@@ -328,6 +375,13 @@ struct AddCollectibleView: View {
                 Section(header: Text("Notes")) {
                     TextEditor(text: $notes)
                         .frame(height: 100)
+                }
+            }
+            .onChange(of: selectedItem) { newItem in
+                Task {
+                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                        selectedImageData = data
+                    }
                 }
             }
             .navigationTitle("Add Collectible")
@@ -367,6 +421,9 @@ struct AddCollectibleView: View {
         newItem.notes = combinedNotes
         
         do {
+            if let imageData = selectedImageData {
+                newItem.image = imageData
+            }
             try viewContext.save()
             dismiss()
         } catch {
