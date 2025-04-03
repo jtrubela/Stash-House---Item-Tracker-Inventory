@@ -456,38 +456,51 @@ struct AddCollectibleView: View {
     }
     
     func saveItem() {
+        print("Selected Category: \(selectedCategory?.name ?? "nil")")
+
         let newItem = Item(context: viewContext)
         newItem.id = UUID()
         newItem.title = title
-        newItem.notes = notes
-        newItem.categoryEntity = selectedCategory
         newItem.barcode = barcode
         newItem.timestamp = Date()
+        
+        // Fallback to "Uncategorized" if no category selected
+        let finalCategory = selectedCategory ?? categories.first(where: { $0.name == "Uncategorized" }) ?? {
+            let uncategorized = Category(context: viewContext)
+            uncategorized.id = UUID()
+            uncategorized.name = "Uncategorized"
+            return uncategorized
+        }()
+        
+        newItem.categoryEntity = finalCategory
         
         // Combine notes + custom fields
         var combinedNotes = notes
         
-        if selectedCategory?.name == "Movie" {
+        if finalCategory.name == "Movie" {
             combinedNotes += "\nDirector: \(director)\nYear: \(releaseYear)"
-        } else if selectedCategory?.name == "Trading Card" {
+        } else if finalCategory.name == "Trading Card" {
             combinedNotes += "\nPlayer: \(playerName)\nCard #: \(cardNumber)"
-        } else if selectedCategory?.name == "Video Game" {
+        } else if finalCategory.name == "Video Game" {
             combinedNotes += "\nPlatform: \(platform)\nPublisher: \(publisher)"
         }
+        print("Selected Category: \(selectedCategory?.name ?? "nil")")
+
         
         newItem.notes = combinedNotes
         
+        if let imageData = selectedImageData {
+            newItem.image = imageData
+        }
+        
         do {
-            if let imageData = selectedImageData {
-                newItem.image = imageData
-            }
             try viewContext.save()
             dismiss()
         } catch {
             print("❌ Failed to save item: \(error.localizedDescription)")
         }
     }
-    
+
     
     func seedDefaultCategoriesIfNeeded() {
         let defaults = ["Movie", "Trading Card", "Video Game", "Comic Book", "Toy"]
@@ -694,13 +707,17 @@ struct EditCollectibleView: View {
     @ObservedObject var item: Item
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
+    @State private var selectedCategory: Category?
+
     
     var body: some View {
         Form {
             Section(header: Text("Basic Info")) {
                 TextField("Title", text: Binding($item.title, default: ""))
                 TextField("Barcode", text: Binding($item.barcode, default: ""))
-                TextField("Category", text: Binding($item.category, default: ""))
+                Section(header: Text("Category")) {
+                    Text(item.categoryEntity?.name ?? "Uncategorized")
+                }
             }
             
             Section(header: Text("Notes")) {
