@@ -1,0 +1,262 @@
+{
+  "path" : [
+    "movies"
+  ],
+  "id" : "movies",
+  "fields" : [
+    {
+      "id" : "image_file_location",
+      "name" : "image_file_location",
+      "type" : "image_path"
+    },
+    {
+      "id" : "title",
+      "name" : "title",
+      "type" : "string"
+    },
+    {
+      "id" : "poster_path",
+      "name" : "poster_path",
+      "type" : "string"
+    },
+    {
+      "id" : "backdrop_path",
+      "name" : "backdrop_path",
+      "type" : "string"
+    },
+    {
+      "id" : "file",
+      "name" : "file",
+      "type" : "string"
+    },
+    {
+      "id" : "format",
+      "name" : "format",
+      "type" : "string"
+    },
+    {
+      "id" : "media_types_owned",
+      "name" : "media_types_owned",
+      "type" : "string"
+    },
+    {
+      "id" : "overview",
+      "name" : "overview",
+      "type" : "string"
+    },
+    {
+      "id" : "tagline",
+      "name" : "tagline",
+      "type" : "string"
+    },
+    {
+      "id" : "genres",
+      "name" : "genres",
+      "type" : "string"
+    },
+    {
+      "id" : "keywords",
+      "name" : "keywords",
+      "type" : "string"
+    },
+    {
+      "id" : "imdb_id",
+      "name" : "imdb_id",
+      "type" : "string"
+    },
+    {
+      "id" : "#",
+      "name" : "#",
+      "type" : "number"
+    },
+    {
+      "id" : "tmdb_id",
+      "name" : "tmdb_id",
+      "type" : "number"
+    },
+    {
+      "id" : "tmdb_url",
+      "name" : "tmdb_url",
+      "type" : "string"
+    },
+    {
+      "id" : "tmdb_poster_path_string",
+      "name" : "tmdb_poster_path_string",
+      "type" : "string"
+    },
+    {
+      "id" : "poster_path_type_string",
+      "name" : "poster_path_type_string",
+      "type" : "string"
+    },
+    {
+      "id" : "tmdb_poster_image_url",
+      "name" : "tmdb_poster_image_url",
+      "type" : "string"
+    },
+    {
+      "id" : "imdb_movie_url",
+      "name" : "imdb_movie_url",
+      "type" : "string"
+    },
+    {
+      "id" : "homepage",
+      "name" : "homepage",
+      "type" : "string"
+    },
+    {
+      "id" : "original_title",
+      "name" : "original_title",
+      "type" : "string"
+    },
+    {
+      "id" : "popularity",
+      "name" : "popularity",
+      "type" : "number"
+    },
+    {
+      "id" : "runtime",
+      "name" : "runtime",
+      "type" : "string"
+    },
+    {
+      "id" : "adult",
+      "name" : "adult",
+      "type" : "string"
+    },
+    {
+      "id" : "release_date",
+      "name" : "release_date",
+      "type" : "number"
+    },
+    {
+      "id" : "budget",
+      "name" : "budget",
+      "type" : "string"
+    },
+    {
+      "id" : "revenue",
+      "name" : "revenue",
+      "type" : "string"
+    },
+    {
+      "id" : "production_companies",
+      "name" : "production_companies",
+      "type" : "string"
+    },
+    {
+      "id" : "production_countries",
+      "name" : "production_countries",
+      "type" : "string"
+    },
+    {
+      "id" : "spoken_languages",
+      "name" : "spoken_languages",
+      "type" : "string"
+    },
+    {
+      "id" : "Creation date",
+      "name" : "Creation date",
+      "type" : "string"
+    },
+    {
+      "id" : "Modified date",
+      "name" : "Modified date",
+      "type" : "string"
+    },
+    {
+      "id" : "Short ID",
+      "name" : "Short ID",
+      "type" : "string"
+    },
+    {
+      "id" : "Manual sorting",
+      "name" : "Manual sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "Managed docs sorting",
+      "name" : "Managed docs sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "Entity 2",
+      "name" : "Entity",
+      "type" : "string"
+    },
+    {
+      "id" : "has_poster_picture",
+      "name" : "has_poster_picture",
+      "type" : "string"
+    },
+    {
+      "id" : "no_image_for_movie",
+      "name" : "no_image_for_movie",
+      "type" : "string"
+    },
+    {
+      "id" : "Creation date 2",
+      "name" : "Creation date",
+      "type" : "string"
+    },
+    {
+      "id" : "Modified date 2",
+      "name" : "Modified date",
+      "type" : "string"
+    },
+    {
+      "id" : "Short ID 2",
+      "name" : "Short ID",
+      "type" : "string"
+    },
+    {
+      "id" : "Manual sorting 2",
+      "name" : "Manual sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "Managed docs sorting 2",
+      "name" : "Managed docs sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "Entity 3",
+      "name" : "Entity",
+      "type" : "string"
+    },
+    {
+      "id" : "createdAt",
+      "name" : "Creation date",
+      "type" : "date"
+    },
+    {
+      "id" : "modifiedAt",
+      "name" : "Modified date",
+      "type" : "date"
+    },
+    {
+      "id" : "shortID",
+      "name" : "Short ID",
+      "type" : "string"
+    },
+    {
+      "id" : "weight",
+      "name" : "Manual sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "man_weight",
+      "name" : "Managed docs sorting",
+      "type" : "number"
+    },
+    {
+      "id" : "entity",
+      "name" : "Entity",
+      "type" : "string"
+    }
+  ],
+  "name" : "Movies",
+  "subcollections" : [
+
+  ]
+}

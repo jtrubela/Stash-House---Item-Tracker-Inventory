@@ -11,10 +11,14 @@ import TMDBSwift
 @main
 struct StashHouseApp: App {
     @StateObject private var ebayAuthManager = EbayAuthManager.shared
+    let persistenceController = PersistenceController.shared
+
     
     var body: some Scene {
         WindowGroup {
-            ScannerContentView()
+            ContentView()
+                .environment(\.managedObjectContext, persistenceController.context)
+
             //            AddItemAndSearchView()
             //            EbaySearchView()
                 .environmentObject(EbayAuthManager.shared)
