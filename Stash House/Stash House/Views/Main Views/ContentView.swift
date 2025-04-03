@@ -126,12 +126,9 @@ struct LibraryView: View {
                                             .cornerRadius(10)
                                             .foregroundColor(.gray)
                                     }
-                                    Text(item.title?.isEmpty == false ? item.title! :
-                                            item.barcode?.isEmpty == false ? item.barcode! :
-                                            item.name?.isEmpty == false ? item.name! :
-                                            item.notes?.isEmpty == false ? item.notes! :
-                                            "Untitled"
-                                    )                                        .font(.headline)
+
+                                    Text(item.displayTitle)
+                                        .font(.headline)
                                         .multilineTextAlignment(.center)
                                     Text(item.category ?? "")
                                         .font(.subheadline)
@@ -280,7 +277,21 @@ struct LibraryView: View {
     }
 }
 
-
+extension Item {
+    var displayTitle: String {
+        if let title = title, !title.isEmpty {
+            return title
+        } else if let barcode = barcode, !barcode.isEmpty {
+            return barcode
+        } else if let name = name, !name.isEmpty {
+            return name
+        } else if let notes = notes, !notes.isEmpty {
+            return notes
+        } else {
+            return "Untitled"
+        }
+    }
+}
 
 
 //import SwiftUI
@@ -288,16 +299,29 @@ import PhotosUI
 
 
 struct AddCollectibleView: View {
+    //Fetch categories list from core data
+    @FetchRequest(
+        entity: Category.entity(),
+        sortDescriptors: [NSSortDescriptor(keyPath: \Category.name, ascending: true)]
+    ) var categories: FetchedResults<Category>
+    @State private var selectedCategory: Category?
+    
+    
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) private var dismiss
     
-    @State private var selectedCategory = "Movie"
     @State private var title = ""
     @State private var barcode = ""
     
     @State private var image = Image(systemName: "question.mark")
+    @State private var selectedItems: [PhotosPickerItem] = []
+    @State private var showDocumentPicker = false
+
+
     @State private var selectedItem: PhotosPickerItem? = nil
     @State private var selectedImageData: Data? = nil
+
+    @State private var showCamera = false
 
     
     @State private var notes = ""
@@ -312,78 +336,106 @@ struct AddCollectibleView: View {
     @State private var platform = ""
     @State private var publisher = ""
     
-    let categories = ["Movie", "Trading Card", "Video Game", "Comic Book", "Toy"]
     
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Category")) {
-                    Picker("Select Category", selection: $selectedCategory) {
-                        ForEach(categories, id: \.self) { category in
-                            Text(category)
-                        }
-                    }
-                    .pickerStyle(SegmentedPickerStyle())
-                }
-                
+
                 Section(header: Text("Basic Info")) {
                     TextField("Title", text: $title)
-
-                    Section(header: Text("Image")) {
-                        PhotosPicker(
-                            selection: $selectedItem,
-                            matching: .images,
-                            photoLibrary: .shared()
-                        ) {
-                            HStack {
-                                Image(systemName: "photo.on.rectangle")
-                                Text("Select Image")
-                            }
+                }
+                
+                Section(header: Text("Image")) {
+                    //Add photos picker
+                    PhotosPicker(
+                        selection: $selectedItem,
+                        matching: .images,
+                        photoLibrary: .shared()
+                    ) {
+                        HStack {
+                            Image(systemName: "photo.on.rectangle")
+                            Text("Pick from Photos")
                         }
-                        
-                        if let imageData = selectedImageData, let uiImage = UIImage(data: imageData) {
-                            Image(uiImage: uiImage)
-                                .resizable()
-                                .scaledToFit()
-                                .frame(height: 150)
-                                .cornerRadius(8)
+                    }
+                    .task(id: selectedItem) {
+                        if let data = try? await selectedItem?.loadTransferable(type: Data.self) {
+                            selectedImageData = data
                         }
                     }
 
                     
+                    //Add import from files image selection
+                    Button {
+                        showDocumentPicker = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "folder")
+                            Text("Import from Files")
+                        }
+                    }
+                    .sheet(isPresented: $showDocumentPicker) {
+                        ImageDocumentPicker { data in
+                            selectedImageData = data
+                        }
+                    }
+                    
+                    
+                    //Add live camera image capture
+                    Button {
+                        showCamera = true
+                    } label: {
+                        HStack {
+                            Image(systemName: "camera")
+                            Text("Take a Photo")
+                        }
+                    }
+                    .sheet(isPresented: $showCamera) {
+                        CameraCaptureView { data in
+                            selectedImageData = data
+                        }
+                    }
+                    
+                    
+                    if let imageData = selectedImageData, let uiImage = UIImage(data: imageData) {
+                        Image(uiImage: uiImage)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(height: 150)
+                            .cornerRadius(8)
+                    }
+                }
+                
+                
+                
+                
+                
+                Section(header: Text("Additional fields")){
                     TextField("Barcode", text: $barcode)
                 }
                 
                 // Custom Fields by Category
-                if selectedCategory == "Movie" {
-                    Section(header: Text("Movie Info")) {
-                        TextField("Director", text: $director)
-                        TextField("Release Year", text: $releaseYear)
+                Section(header: Text("Category")) {
+                    Picker("Select a Category", selection: $selectedCategory) {
+                        ForEach(categories, id: \.self) { category in
+                            Text(category.name ?? "Unnamed").tag(category as Category?)
+                        }
                     }
-                } else if selectedCategory == "Trading Card" {
-                    Section(header: Text("Card Info")) {
-                        TextField("Player Name", text: $playerName)
-                        TextField("Card Number", text: $cardNumber)
-                    }
-                } else if selectedCategory == "Video Game" {
-                    Section(header: Text("Game Info")) {
-                        TextField("Platform", text: $platform)
-                        TextField("Publisher", text: $publisher)
-                    }
+                    
+                    
+                    //Call the viewbuilder to type check conditional fields safely
+                    categorySpecificFields()
+                    
+                    
                 }
+
                 
                 Section(header: Text("Notes")) {
                     TextEditor(text: $notes)
                         .frame(height: 100)
                 }
+                
             }
-            .onChange(of: selectedItem) { newItem in
-                Task {
-                    if let data = try? await newItem?.loadTransferable(type: Data.self) {
-                        selectedImageData = data
-                    }
-                }
-            }
+
             .navigationTitle("Add Collectible")
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
@@ -398,23 +450,28 @@ struct AddCollectibleView: View {
                 }
             }
         }
+        .onAppear{
+            seedDefaultCategoriesIfNeeded()
+        }
     }
     
     func saveItem() {
         let newItem = Item(context: viewContext)
         newItem.id = UUID()
         newItem.title = title
+        newItem.notes = notes
+        newItem.categoryEntity = selectedCategory
         newItem.barcode = barcode
-        newItem.category = selectedCategory
         newItem.timestamp = Date()
         
         // Combine notes + custom fields
         var combinedNotes = notes
-        if selectedCategory == "Movie" {
+        
+        if selectedCategory?.name == "Movie" {
             combinedNotes += "\nDirector: \(director)\nYear: \(releaseYear)"
-        } else if selectedCategory == "Trading Card" {
+        } else if selectedCategory?.name == "Trading Card" {
             combinedNotes += "\nPlayer: \(playerName)\nCard #: \(cardNumber)"
-        } else if selectedCategory == "Video Game" {
+        } else if selectedCategory?.name == "Video Game" {
             combinedNotes += "\nPlatform: \(platform)\nPublisher: \(publisher)"
         }
         
@@ -430,7 +487,207 @@ struct AddCollectibleView: View {
             print("❌ Failed to save item: \(error.localizedDescription)")
         }
     }
+    
+    
+    func seedDefaultCategoriesIfNeeded() {
+        let defaults = ["Movie", "Trading Card", "Video Game", "Comic Book", "Toy"]
+        
+        for name in defaults {
+            if !categories.contains(where: { $0.name == name }) {
+                let newCat = Category(context: viewContext)
+                newCat.id = UUID()
+                newCat.name = name
+            }
+        }
+        
+        try? viewContext.save()
+    }
+    
+    @ViewBuilder
+    func categorySpecificFields() -> some View {
+        if selectedCategory?.name == "Movie" {
+            Section(header: Text("Movie Info")) {
+                TextField("Director", text: $director)
+                TextField("Release Year", text: $releaseYear)
+            }
+        } else if selectedCategory?.name == "Trading Card" {
+            Section(header: Text("Card Info")) {
+                TextField("Player Name", text: $playerName)
+                TextField("Card Number", text: $cardNumber)
+            }
+        } else if selectedCategory?.name == "Video Game" {
+            Section(header: Text("Game Info")) {
+                TextField("Platform", text: $platform)
+                TextField("Publisher", text: $publisher)
+            }
+        }
+    }
 }
+
+
+
+//import SwiftUI
+//import PhotosUI
+import UniformTypeIdentifiers
+import UIKit
+
+struct ImageSourceSelectorView: View {
+    @Binding var selectedImageData: Data?
+    
+    @State private var showDocumentPicker = false
+    @State private var showCamera = false
+    @State private var selectedItem: PhotosPickerItem?
+    
+    var body: some View {
+        Section(header: Text("Image")) {
+            PhotosPicker(
+                selection: $selectedItem,
+                matching: .images,
+                photoLibrary: .shared()
+            ) {
+                Label("Pick from Photos", systemImage: "photo.on.rectangle")
+            }
+            
+            Button {
+                showDocumentPicker = true
+            } label: {
+                Label("Import from Files", systemImage: "folder")
+            }
+            
+            Button {
+                showCamera = true
+            } label: {
+                Label("Take a Photo", systemImage: "camera")
+            }
+            
+            if let imageData = selectedImageData,
+               let uiImage = UIImage(data: imageData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(height: 150)
+                    .cornerRadius(8)
+            }
+        }
+        .onChange(of: selectedItem) { newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self) {
+                    selectedImageData = data
+                }
+            }
+        }
+        .sheet(isPresented: $showDocumentPicker) {
+            ImageDocumentPicker { data in
+                selectedImageData = data
+            }
+        }
+        .sheet(isPresented: $showCamera) {
+            CameraCaptureView { data in
+                selectedImageData = data
+            }
+        }
+    }
+}
+
+
+
+//import SwiftUI
+//import UniformTypeIdentifiers
+//import UIKit
+
+struct ImageDocumentPicker: UIViewControllerRepresentable {
+    var onImagePicked: (Data) -> Void
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onImagePicked: onImagePicked)
+    }
+    
+    func makeUIViewController(context: Context) -> UIDocumentPickerViewController {
+        let supportedTypes: [UTType] = [
+            .image,
+            .jpeg,
+            .png,
+            .heic,
+            .tiff,
+            UTType("public.jpeg"),
+            UTType("public.png")
+        ].compactMap { $0 }
+
+
+        let picker = UIDocumentPickerViewController(forOpeningContentTypes: supportedTypes)
+        picker.delegate = context.coordinator
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIDocumentPickerViewController, context: Context) {}
+    
+    class Coordinator: NSObject, UIDocumentPickerDelegate {
+        var onImagePicked: (Data) -> Void
+        
+        init(onImagePicked: @escaping (Data) -> Void) {
+            self.onImagePicked = onImagePicked
+        }
+        
+        func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+            guard let url = urls.first else { return }
+            
+            // Securely access file
+            guard url.startAccessingSecurityScopedResource() else { return }
+            defer { url.stopAccessingSecurityScopedResource() }
+            
+            do {
+                let data = try Data(contentsOf: url)
+                onImagePicked(data)
+            } catch {
+                print("❌ Failed to load image data from file: \(error)")
+            }
+        }
+
+    }
+}
+
+
+//import SwiftUI
+//import UIKit
+
+struct CameraCaptureView: UIViewControllerRepresentable {
+    var onImageCaptured: (Data) -> Void
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onImageCaptured: onImageCaptured)
+    }
+    
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.delegate = context.coordinator
+        picker.sourceType = .camera
+        picker.cameraCaptureMode = .photo
+        return picker
+    }
+    
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    
+    class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        var onImageCaptured: (Data) -> Void
+        
+        init(onImageCaptured: @escaping (Data) -> Void) {
+            self.onImageCaptured = onImageCaptured
+        }
+        
+        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let image = info[.originalImage] as? UIImage,
+               let data = image.jpegData(compressionQuality: 0.8) {
+                onImageCaptured(data)
+            }
+            picker.dismiss(animated: true)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true)
+        }
+    }
+}
+
 
 
 struct EditCollectibleView: View {

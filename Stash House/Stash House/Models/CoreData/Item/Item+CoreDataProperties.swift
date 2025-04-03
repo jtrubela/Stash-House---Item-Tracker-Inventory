@@ -24,6 +24,7 @@ extension Item {
     @NSManaged public var notes: String?
     @NSManaged public var timestamp: Date?
     @NSManaged public var title: String?
+    @NSManaged public var categoryEntity: Category?
 
 }
 

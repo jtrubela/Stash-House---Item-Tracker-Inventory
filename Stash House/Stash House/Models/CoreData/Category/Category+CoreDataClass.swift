@@ -1,5 +1,5 @@
 //
-//  Item+CoreDataClass.swift
+//  Category+CoreDataClass.swift
 //  Stash House
 //
 //  Created by Justin Trubela on 4/2/25.
@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-@objc(Item)
-public class Item: NSManagedObject {
+@objc(Category)
+public class Category: NSManagedObject {
 
 }
