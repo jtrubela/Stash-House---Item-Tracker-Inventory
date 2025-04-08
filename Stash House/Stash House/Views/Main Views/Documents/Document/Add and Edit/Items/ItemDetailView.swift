@@ -45,9 +45,9 @@ struct ItemListView: View {
                         .foregroundColor(.white)
                         .cornerRadius(8)
                 }
-                .sheet(isPresented: $showAddOptions) {
-                    AddOptionsModalView(selectedOption: $selectedOption, isScanning: $viewModel.isScanning)
-                }
+//                .sheet(isPresented: $showAddOptions) {
+//                    AddOptionsModalView(selectedOption: $selectedOption, isScanning: $viewModel.isScanning)
+//                }
 
                 
                 // Show AddDocumentView when an option is selected

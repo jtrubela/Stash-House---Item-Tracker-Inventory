@@ -61,9 +61,9 @@ struct AddOptionsModalView: View {
             
             Spacer()
         }
-        .padding()
-        .presentationDetents([.large])
+        .padding() // ✅ Keep this for layout consistency
     }
+
     
     private var headerTitle: some View {
         HStack {
@@ -158,7 +158,7 @@ struct AddOptionsModalView: View {
     
     private var templateOptions: [(label: String, icon: String)] {
         [
-            ("Custom", "square.grid.2x2"),
+            ("Custom", "doc"),
             ("Books", "book"),
             ("Games", "gamecontroller"),
             ("Music", "music.note"),
@@ -195,3 +195,5 @@ private struct AddOptionsModalPreview: View {
         }
     }
 }
+
+
